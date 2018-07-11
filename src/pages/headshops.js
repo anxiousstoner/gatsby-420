@@ -5,13 +5,12 @@ import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import { ThemeContext } from "../layouts";
 
-import Headshops from "../components/Headshops";
 import Seo from "../components/Seo";
+
 
 const HeadshopsPage = props => {
   const {
     data: {
-      pots: { edges: pots = [] },
       site: {
         siteMetadata: { facebook }
       }
@@ -20,7 +19,6 @@ const HeadshopsPage = props => {
 
   return (
     <React.Fragment>
-
 
       <ThemeContext.Consumer>
         {theme => (
@@ -42,10 +40,6 @@ const HeadshopsPage = props => {
               <br />
           </Article>
         )}
-      </ThemeContext.Consumer>
-
-      <ThemeContext.Consumer>
-        {theme => <Headshops posts={pots} theme={theme} />}
       </ThemeContext.Consumer>
 
       <ThemeContext.Consumer>
@@ -125,8 +119,11 @@ const HeadshopsPage = props => {
                 <br /><br />
                 With the laziness that is often associated with blazing, it is awesome to be able to get your smoking gear delivered and never leave the house!
           </Article>
+
         )}
       </ThemeContext.Consumer>
+
+      <Seo facebook={facebook} />
     </React.Fragment>
   );
 };
@@ -140,34 +137,7 @@ export default HeadshopsPage;
 
 export const query = graphql`
   query HeadshopsQuery {
-    pots: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "//posts/guide+.*--/" } }
-      sort: { fields: [fields___prefix], order: DESC }
-    ) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-            prefix
-          }
-          frontmatter {
-            title
-            category
-            author
-            cover {
-              children {
-                ... on ImageSharp {
-                  sizes(maxWidth: 800, maxHeight: 360) {
-                    ...GatsbyImageSharpSizes_withWebp
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    
     site {
       siteMetadata {
         facebook {
