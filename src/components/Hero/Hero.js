@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Link from "gatsby-link";
+
+import Cardslist from "../Card/Cardslist";
+import GuidesList from "../GuidesList/GuidesList";
 import FaArrowDown from "react-icons/lib/fa/arrow-down";
 
 const Hero = props => {
@@ -12,9 +16,9 @@ const Hero = props => {
         <h1>
           This is the new home of&nbsp; <strong>420Smokers</strong>
         </h1>
-        <button onClick={scrollToContent} aria-label="scroll">
-          <FaArrowDown />
-        </button>
+        <div className="guideslist">
+          <GuidesList theme={theme} />
+        </div>
       </section>
 
       {/* --- STYLES --- */}
@@ -107,11 +111,21 @@ const Hero = props => {
           button {
             font-size: ${theme.font.size.l};
           }
+
+
+        }
+
+        .guideslist {
+          display: none;
         }
 
         @from-width desktop {
           .hero {
             background-image: url(${backgrounds.desktop});
+          }
+
+          .guideslist {
+            display: initial;
           }
 
           h1 {
@@ -121,6 +135,41 @@ const Hero = props => {
 
           button {
             font-size: ${theme.font.size.xl};
+          }
+
+
+        }
+
+        .card {
+          padding: 1em;
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.3s;
+          border-radius: 5px;
+
+          :global(img) {
+            fill: ${theme.icon.color};
+            margin:  ${theme.space.default};
+            border: 1px solid ${theme.line.color};
+            border: 1px solid #ecebea;
+            border-radius: 90%;
+            padding: 4px;
+          }
+        }
+
+        @from-width desktop {
+          .card {
+            background: white;
+            margin: 5px;
+            width: 223px;
+          }
+
+          @media (hover: hover) {
+            :global(.card:hover) {
+              -webkit-transform: scale(1.2);
+              -ms-transform: scale(1.2);
+              transform: scale(1.2);
+            }
+
           }
         }
       `}</style>
