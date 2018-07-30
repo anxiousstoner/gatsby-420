@@ -48,17 +48,27 @@ module.exports = {
     `gatsby-plugin-react-next`,
     // `gatsby-plugin-styled-jsx`, // the plugin's code is inserted directly to gatsby-node.js and gatsby-ssr.js files
     // 'gatsby-plugin-styled-jsx-postcss', // as above
-  //  {
-  //    resolve: `gatsby-plugin-algolia`,
-  //    options: {
-  //      appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-  //      apiKey: process.env.ALGOLIA_ADMIN_API_KEY ? process.env.ALGOLIA_ADMIN_API_KEY : "",
-  //      indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : "",
-  //      queries,
-  //      chunkSize: 10000 // default: 1000
-  //    }
-  //  },
-  
+    //  {
+    //    resolve: `gatsby-plugin-algolia`,
+    //    options: {
+    //      appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
+    //      apiKey: process.env.ALGOLIA_ADMIN_API_KEY ? process.env.ALGOLIA_ADMIN_API_KEY : "",
+    //      indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : "",
+    //      queries,
+    //      chunkSize: 10000 // default: 1000
+    //    }
+    //  },
+    {
+      resolve: "gatsby-source-prismic",
+      options: {
+        repositoryName: "4201",
+        accessToken:
+          "MC5XMWhkRnlFQUFCOEFvRXYx.f--_ve-_ve-_ve-_ve-_ve-_vTLvv70FDAZPFu-_vWsfS--_ve-_vSZI77-977-9Ne-_vRfvv73vv70p77-977-9"
+      },
+      htmlSerializer: ({ node, key, value }) => (type, element, content, children) => {
+        // Your HTML serializer
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

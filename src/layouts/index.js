@@ -119,12 +119,13 @@ class Layout extends React.Component {
                   line-height: 1.1;
                   letter-spacing: -0.03em;
                   margin: 0;
+                  margin-top: 10px;
                 }
                 h1 {
                   letter-spacing: -0.04em;
                 }
                 p {
-                  margin: 0;
+                  margin-top: 10px;
                 }
                 strong {
                   font-weight: ${this.state.font600loaded ? 600 : 400};
