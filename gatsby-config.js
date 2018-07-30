@@ -61,9 +61,8 @@ module.exports = {
     {
       resolve: "gatsby-source-prismic",
       options: {
-        repositoryName: "4201",
-        accessToken:
-          "MC5XMWhkRnlFQUFCOEFvRXYx.f--_ve-_ve-_ve-_ve-_ve-_vTLvv70FDAZPFu-_vWsfS--_ve-_vSZI77-977-9Ne-_vRfvv73vv70p77-977-9"
+        repositoryName: process.env.PRISMIC_REPO_NAME,
+        accessToken: process.env.PRISMIC_ACCESS_TOKEN
       },
       htmlSerializer: ({ node, key, value }) => (type, element, content, children) => {
         // Your HTML serializer
