@@ -6,6 +6,8 @@ import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import Cardslist from "../components/Card/Cardslist";
 
+import Seo from "../components/Seo";
+
 export default ({ data }) => {
   return (
     <React.Fragment>
@@ -66,12 +68,21 @@ export default ({ data }) => {
           </Article>
         )}
       </ThemeContext.Consumer>
+
+      <Seo facebook={data.site.siteMetadata.facebook} />
     </React.Fragment>
   );
 };
 
 export const query = graphql`
   query Guides1Query {
+    site {
+      siteMetadata {
+        facebook {
+          appId
+        }
+      }
+    }
     allPrismicGuide {
       edges {
         node {

@@ -46,6 +46,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             }
           }
         }
+        allPrismicBlogPost {
+          edges {
+            node {
+              id
+              uid
+            }
+          }
+        }
       }
     `).then(result => {
       result.data.allPrismicGuide.edges.forEach(({ node }) => {
@@ -62,6 +70,16 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         createPage({
           path: node.uid,
           component: path.resolve(`./src/templates/ReviewTemplate.js`),
+          context: {
+            // Data passed to context is available in page queries as GraphQL variables.
+            slug: node.uid
+          }
+        });
+      });
+      result.data.allPrismicBlogPost.edges.forEach(({ node }) => {
+        createPage({
+          path: node.uid,
+          component: path.resolve(`./src/templates/BlogPostTemplate.js`),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
             slug: node.uid
