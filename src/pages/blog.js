@@ -16,36 +16,35 @@ export default ({ data }) => {
           <Article theme={theme}>
             <header>
               <h1 />
-              <Headline title="All Our Guides To Cannabis Culture" theme={theme} />
+              <Headline title="Latest From Our Blog" theme={theme} />
             </header>
             <Cardslist>
-              {data.allPrismicGuide.edges.map(({ node }, index) => (
+              {data.allPrismicBlogPost.edges.map(({ node }, index) => (
                 <div key={index}>
                   <Link to={"/" + node.uid}>
                     <div className="card">
-                      <img src={node.data.icon.url} alt={node.data.title.text} />
-                      <h2 className="heading">{node.data.title.text}</h2>
-                      <p className="meta">{node.data.subtitle.text}</p>
+                      <img src={node.data.image.url} alt={node.data.title.text} />
+                      <div className="text">
+                        <h2 className="heading">{node.data.title.text}</h2>
+                        <p className="meta">{node.data.excerpt.text}</p>
+                      </div>
                     </div>
                   </Link>
                 </div>
               ))}
               <style jsx>{`
                 .card {
-                  padding: 1em;
                   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                   transition: 0.3s;
                   border-radius: 5px;
 
                   :global(img) {
-                    fill: ${theme.icon.color};
-                    margin: ${theme.space.default};
-                    border: 1px solid ${theme.line.color};
-                    border: 1px solid #ecebea;
-                    border-radius: 90%;
-                    padding: 4px;
-                    max-width: 150px;
+                    max-width: 100%;
                   }
+                }
+
+                .text {
+                  padding: 0.7em;
                 }
 
                 @from-width desktop {
@@ -75,7 +74,7 @@ export default ({ data }) => {
 };
 
 export const query = graphql`
-  query Guides1Query {
+  query Posts1Query {
     site {
       siteMetadata {
         facebook {
@@ -83,19 +82,20 @@ export const query = graphql`
         }
       }
     }
-    allPrismicGuide {
+    allPrismicBlogPost {
       edges {
         node {
-          id
           uid
           data {
-            icon {
-              url
-            }
             title {
+              html
               text
             }
-            subtitle {
+            image {
+              url
+            }
+            excerpt {
+              html
               text
             }
           }

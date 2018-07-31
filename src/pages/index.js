@@ -58,6 +58,7 @@ class IndexPage extends React.Component {
         <ThemeContext.Consumer>
           {theme => (
             <Article theme={theme}>
+              <h1>Our top guides...</h1>
               <Cardslist>
                 {allPrismicGuide.edges.map(({ node }, index) => (
                   <div key={index}>
@@ -162,10 +163,6 @@ class IndexPage extends React.Component {
 
                 .text {
                   padding: 0.7em;
-                }
-
-                .meta {
-                  font-size: 14px;
                 }
 
                 .more {

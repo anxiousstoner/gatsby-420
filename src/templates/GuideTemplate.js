@@ -5,6 +5,7 @@ import Button from "antd/lib/button";
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
+import Bodytext from "../components/Article/Bodytext";
 
 export default ({ data }) => {
   const post = data.prismicGuide;
@@ -18,9 +19,8 @@ export default ({ data }) => {
               <Headline title={post.data.title.text} theme={theme} />
               <img src={post.data.icon.url} />
             </header>
-            <div>
-              <div dangerouslySetInnerHTML={{ __html: post.data.excerpt.html }} />
-            </div>
+            <Bodytext theme={theme} html={post.data.excerpt.html} />
+
             <div className="list">
               {data.allPrismicReview.edges.map(({ node }, index) => (
                 <div key={index}>
@@ -38,7 +38,7 @@ export default ({ data }) => {
                     </div>
                     <div className="buttons-middle-block">
                       <div className="button-middle">
-                        <Button href={node.uid}>More Info</Button>
+                        <Button href={"/" + node.uid}>More Info</Button>
                       </div>
                       <div className="button-middle">
                         <Button href={node.data.url.url}>Visit Now</Button>
@@ -48,9 +48,8 @@ export default ({ data }) => {
                 </div>
               ))}
             </div>
-            <div>
-              <div dangerouslySetInnerHTML={{ __html: post.data.review.html }} />
-            </div>
+            <Bodytext theme={theme} html={post.data.review.html} />
+
             <style jsx>{`
               .header {
                 display: flex;

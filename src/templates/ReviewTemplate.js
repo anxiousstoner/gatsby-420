@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
+import Bodytext from "../components/Article/Bodytext";
 import Button from "antd/lib/button";
 import FaThumbsup from "react-icons/lib/fa/thumbs-up";
 import FaThumbsdown from "react-icons/lib/fa/thumbs-down";
@@ -53,9 +54,8 @@ export default ({ data }) => {
             </div>
             <br />
             <hr />
-            <div>
-              <div dangerouslySetInnerHTML={{ __html: post.data.body.html }} />
-            </div>
+            <Bodytext theme={theme} html={post.data.body.html} />
+
             <div className="highlight">
               <img src={post.data.image.url} alt={post.data.title.text} />
               <div className="col1">

@@ -15,6 +15,9 @@ const Hero = props => {
         <h1>
           This is the new home of&nbsp; <strong>420Smokers</strong>
         </h1>
+        <button onClick={scrollToContent} aria-label="scroll">
+          <FaArrowDown />
+        </button>
       </section>
 
       {/* --- STYLES --- */}
