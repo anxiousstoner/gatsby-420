@@ -5,7 +5,7 @@ import config from "../../../content/meta/config";
 
 const Seo = props => {
   const { data, facebook } = props;
-  const postTitle = ((data || {}).frontmatter || {}).title;
+  const postTitle = ((data || {}).data || {}).title.text;
   const postDescription = ((data || {}).frontmatter || {}).description;
   const postCover = ((data || {}).frontmatter || {}).cover;
   const postSlug = ((data || {}).fields || {}).slug;
