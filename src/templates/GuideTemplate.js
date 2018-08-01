@@ -17,7 +17,9 @@ export default ({ data }) => {
           <Article theme={theme}>
             <header className="header">
               <Headline title={post.data.title.text} theme={theme} />
-              <img src={post.data.icon.url} />
+              <div className="icon">
+                <img src={post.data.icon.url} alt={post.data.title.text} />
+              </div>
             </header>
             <Bodytext theme={theme} html={post.data.excerpt.html} />
 
@@ -59,7 +61,23 @@ export default ({ data }) => {
                   max-width: 150px;
                   min-height: 75px;
                   padding: 15px;
+                  min-width: 100px;
+                  max-width: 100px;
+                  padding: 22px;
                 }
+              }
+
+              .icon {
+                margin: ${theme.space.default} auto;
+                border: 1px solid ${theme.line.color};
+                border-radius: 90%;
+                padding: 2px;
+                min-width: 100px;
+                max-width: 100px;
+                height: 100px;
+                background-color: ${post.data.icon_background};
+                box-shadow: 3px 4px 8px 0 rgba(0, 0, 0, 0.2);
+                align-items: center;
               }
 
               .list {
@@ -137,6 +155,7 @@ export const query = graphql`
         icon {
           url
         }
+        icon_background
       }
     }
     allPrismicReview(
