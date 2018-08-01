@@ -11,16 +11,14 @@ const Cardslist = props => {
       {/* --- STYLES --- */}
       <style jsx>{`
         .cardslist {
-          text-align:center;
-
+          text-align: center;
         }
 
         @from-width desktop {
-
           .cardslist {
             display: flex;
             flex-wrap: wrap;
-            align-items: flex-end;
+            align-items: baseline;
           }
         }
       `}</style>
@@ -29,7 +27,7 @@ const Cardslist = props => {
 };
 
 Cardslist.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Cardslist;
