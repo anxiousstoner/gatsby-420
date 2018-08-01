@@ -39,7 +39,10 @@ export default ({ data }) => {
                   border-radius: 5px;
 
                   :global(img) {
+                    min-width: 100%;
                     max-width: 100%;
+                    min-height: 180px;
+                    max-height: 180px;
                   }
                 }
 
