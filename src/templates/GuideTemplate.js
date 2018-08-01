@@ -139,7 +139,10 @@ export const query = graphql`
         }
       }
     }
-    allPrismicReview(filter: { tags: { eq: $slug } }) {
+    allPrismicReview(
+      filter: { tags: { eq: $slug } }
+      sort: { fields: [data___rating], order: DESC }
+    ) {
       edges {
         node {
           tags

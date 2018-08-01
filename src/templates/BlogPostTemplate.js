@@ -103,7 +103,9 @@ export default ({ data }) => {
             </div>
             <style jsx>{`
               img {
+                min-width: 100%;
                 max-width: 100%;
+                max-height: 400px;
               }
 
               .share {

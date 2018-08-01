@@ -23,47 +23,59 @@ export default ({ data }) => {
                 <div key={index}>
                   <Link to={"/" + node.uid}>
                     <div className="card">
-                      <img src={node.data.icon.url} alt={node.data.title.text} />
+                      <div className="icon">
+                        <img src={node.data.icon.url} alt={node.data.title.text} />
+                      </div>
                       <h2 className="heading">{node.data.title.text}</h2>
                       <p className="meta">{node.data.subtitle.text}</p>
                     </div>
                   </Link>
+                  <style jsx>{`
+                    .card {
+                      padding: 1em;
+                      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                      transition: 0.3s;
+                      border-radius: 5px;
+
+                      :global(img) {
+                        fill: ${theme.icon.color};
+                        min-width: 100px;
+                        max-width: 100px;
+                        padding: 22px;
+                      }
+                    }
+
+                    .icon {
+                      margin: ${theme.space.default} auto;
+                      border: 1px solid ${theme.line.color};
+                      border-radius: 90%;
+                      padding: 2px;
+                      min-width: 100px;
+                      max-width: 100px;
+                      height: 100px;
+                      background-color: ${node.data.icon_background};
+                      box-shadow: 3px 4px 8px 0 rgba(0, 0, 0, 0.2);
+                      align-items: center;
+                    }
+
+                    @from-width desktop {
+                      .card {
+                        background: white;
+                        margin: 5px;
+                        width: 223px;
+                      }
+
+                      @media (hover: hover) {
+                        :global(.card:hover) {
+                          -webkit-transform: scale(1.2);
+                          -ms-transform: scale(1.2);
+                          transform: scale(1.2);
+                        }
+                      }
+                    }
+                  `}</style>
                 </div>
               ))}
-              <style jsx>{`
-                .card {
-                  padding: 1em;
-                  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                  transition: 0.3s;
-                  border-radius: 5px;
-
-                  :global(img) {
-                    fill: ${theme.icon.color};
-                    margin: ${theme.space.default};
-                    border: 1px solid ${theme.line.color};
-                    border: 1px solid #ecebea;
-                    border-radius: 90%;
-                    padding: 4px;
-                    max-width: 150px;
-                  }
-                }
-
-                @from-width desktop {
-                  .card {
-                    background: white;
-                    margin: 5px;
-                    width: 223px;
-                  }
-
-                  @media (hover: hover) {
-                    :global(.card:hover) {
-                      -webkit-transform: scale(1.2);
-                      -ms-transform: scale(1.2);
-                      transform: scale(1.2);
-                    }
-                  }
-                }
-              `}</style>
             </Cardslist>
           </Article>
         )}
@@ -92,6 +104,7 @@ export const query = graphql`
             icon {
               url
             }
+            icon_background
             title {
               text
             }
