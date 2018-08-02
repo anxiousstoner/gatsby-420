@@ -7,8 +7,29 @@ import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import Bodytext from "../components/Article/Bodytext";
 
+import {
+  FacebookShareButton,
+  GooglePlusShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  FacebookShareCount,
+  GooglePlusShareCount,
+  LinkedinShareCount,
+  FacebookIcon,
+  TwitterIcon,
+  GooglePlusIcon,
+  LinkedinIcon
+} from "react-share";
+
+import config from "../../content/meta/config";
+
 export default ({ data }) => {
   const post = data.prismicGuide;
+
+  const url = config.siteUrl + config.pathPrefix + "/" + post.uid;
+
+  const iconSize = 36;
+  const filter = count => (count > 0 ? count : "");
 
   return (
     <React.Fragment>
@@ -43,7 +64,9 @@ export default ({ data }) => {
                         <Button href={"/" + node.uid}>More Info</Button>
                       </div>
                       <div className="button-middle">
-                        <Button href={node.data.url.url}>Visit Now</Button>
+                        <Button type="primary" href={node.data.url.url}>
+                          Buy Now
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -51,7 +74,56 @@ export default ({ data }) => {
               ))}
             </div>
             <Bodytext theme={theme} html={post.data.review.html} />
-
+            <div className="share">
+              <span className="label">SHARE</span>
+              <div className="links">
+                <TwitterShareButton
+                  url={url}
+                  title={post.data.title.text}
+                  additionalProps={{
+                    "aria-label": "Twitter share"
+                  }}
+                >
+                  <TwitterIcon round size={iconSize} />
+                </TwitterShareButton>
+                <GooglePlusShareButton
+                  url={url}
+                  additionalProps={{
+                    "aria-label": "Google share"
+                  }}
+                >
+                  <GooglePlusIcon round size={iconSize} />
+                  <GooglePlusShareCount url={url}>
+                    {count => <div className="share-count">{filter(count)}</div>}
+                  </GooglePlusShareCount>
+                </GooglePlusShareButton>
+                <FacebookShareButton
+                  url={url}
+                  quote={post.data.title.text}
+                  additionalProps={{
+                    "aria-label": "Facebook share"
+                  }}
+                >
+                  <FacebookIcon round size={iconSize} />
+                  <FacebookShareCount url={url}>
+                    {count => <div className="share-count">{filter(count)}</div>}
+                  </FacebookShareCount>
+                </FacebookShareButton>
+                <LinkedinShareButton
+                  url={url}
+                  title={post.data.title.text}
+                  description={post.data.title.text}
+                  additionalProps={{
+                    "aria-label": "LinkedIn share"
+                  }}
+                >
+                  <LinkedinIcon round size={iconSize} />
+                  <LinkedinShareCount url={url}>
+                    {count => <div className="share-count">{filter(count)}</div>}
+                  </LinkedinShareCount>
+                </LinkedinShareButton>
+              </div>
+            </div>
             <style jsx>{`
               .header {
                 display: flex;
@@ -135,6 +207,11 @@ export default ({ data }) => {
                 .image-middle-card {
                   margin-left: 0;
                 }
+
+                .feature-number {
+                  padding-top: 75px !important;
+                  padding-bottom: 75px !important;
+                }
               }
 
               .feature-number {
@@ -159,6 +236,38 @@ export default ({ data }) => {
               .button-middle {
                 margin-top: 15px;
               }
+
+              .share {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .links {
+                display: flex;
+                flex-direction: row;
+
+                :global(.SocialMediaShareButton) {
+                  margin: 0 0.8em;
+                  cursor: pointer;
+                }
+              }
+
+              .label {
+                font-size: 1.2em;
+                margin: 0 1em 1em;
+              }
+
+              @from-width tablet {
+                .share {
+                  flex-direction: row;
+                  margin: ${theme.space.inset.l};
+                }
+                .label {
+                  margin: ${theme.space.inline.m};
+                }
+              }
             `}</style>
           </Article>
         )}
@@ -171,6 +280,7 @@ export const query = graphql`
   query BlogPostQuery($slug: String!) {
     prismicGuide(uid: { eq: $slug }) {
       id
+      uid
       data {
         title {
           html
