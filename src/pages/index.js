@@ -6,7 +6,7 @@ import { ThemeContext } from "../layouts";
 import Hero from "../components/Hero";
 import Seo from "../components/Seo";
 import Article from "../components/Article";
-import Headline from "../components/Article";
+import Headline from "../components/Article/Headline";
 import Cardslist from "../components/Card/Cardslist";
 
 import Button from "antd/lib/button";
@@ -58,7 +58,9 @@ class IndexPage extends React.Component {
         <ThemeContext.Consumer>
           {theme => (
             <Article theme={theme}>
-              <h1>Our top guides...</h1>
+              <header>
+                <Headline title="Our Top Guides To Cannabis Culture" theme={theme} />
+              </header>
               <Cardslist>
                 {allPrismicGuide.edges.map(({ node }, index) => (
                   <div key={index}>
@@ -108,9 +110,9 @@ class IndexPage extends React.Component {
 
                         @media (hover: hover) {
                           :global(.card:hover) {
-                            -webkit-transform: scale(1.2);
-                            -ms-transform: scale(1.2);
-                            transform: scale(1.2);
+                            -webkit-transform: scale(1.1);
+                            -ms-transform: scale(1.1);
+                            transform: scale(1.1);
                           }
                         }
                       }
@@ -136,8 +138,9 @@ class IndexPage extends React.Component {
         <ThemeContext.Consumer>
           {theme => (
             <Article theme={theme}>
-              <h1 className="heading">Our latest blogs...</h1>
-              <br />
+              <header>
+                <Headline title="Our Latest Blogs" theme={theme} />
+              </header>
               <Cardslist>
                 {allPrismicBlogPost.edges.map(({ node }, index) => (
                   <div key={index}>
@@ -195,9 +198,9 @@ class IndexPage extends React.Component {
 
                   @media (hover: hover) {
                     :global(.card:hover) {
-                      -webkit-transform: scale(1.2);
-                      -ms-transform: scale(1.2);
-                      transform: scale(1.2);
+                      -webkit-transform: scale(1.1);
+                      -ms-transform: scale(1.1);
+                      transform: scale(1.1);
                     }
                   }
                 }
@@ -221,7 +224,7 @@ export default IndexPage;
 //eslint-disable-next-line no-undef
 export const guery = graphql`
   query IndexQuery {
-    allPrismicBlogPost(limit: 9) {
+    allPrismicBlogPost(limit: 9, sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           uid

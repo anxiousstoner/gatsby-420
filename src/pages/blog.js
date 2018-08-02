@@ -59,9 +59,9 @@ export default ({ data }) => {
 
                   @media (hover: hover) {
                     :global(.card:hover) {
-                      -webkit-transform: scale(1.2);
-                      -ms-transform: scale(1.2);
-                      transform: scale(1.2);
+                      -webkit-transform: scale(1.1);
+                      -ms-transform: scale(1.1);
+                      transform: scale(1.1);
                     }
                   }
                 }
@@ -85,10 +85,11 @@ export const query = graphql`
         }
       }
     }
-    allPrismicBlogPost {
+    allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           uid
+          last_publication_date
           data {
             title {
               html

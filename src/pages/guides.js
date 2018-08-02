@@ -67,9 +67,9 @@ export default ({ data }) => {
 
                       @media (hover: hover) {
                         :global(.card:hover) {
-                          -webkit-transform: scale(1.2);
-                          -ms-transform: scale(1.2);
-                          transform: scale(1.2);
+                          -webkit-transform: scale(1.1);
+                          -ms-transform: scale(1.1);
+                          transform: scale(1.1);
                         }
                       }
                     }

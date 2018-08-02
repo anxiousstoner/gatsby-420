@@ -90,14 +90,50 @@ export default ({ data }) => {
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                 transition: 0.3s;
                 border-radius: 5px;
-                display: flex;
                 align-items: center;
+                display: flex;
+                flex-wrap: wrap;
 
                 :global(img) {
-                  max-height: 100px;
+                  max-height: 150px;
                   max-width: 150px;
-                  min-height: 75px;
+                  min-width: 150px;
+                  min-height: 150px;
                   padding: 15px;
+                }
+              }
+
+              .image-middle-card {
+                margin-left: auto;
+              }
+
+              .details-middle {
+                padding: 0.5em;
+              }
+
+              .buttons-middle-block {
+                flex-wrap: wrap;
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+              }
+
+              @from-width desktop {
+                .card-middle {
+                  display: flex;
+                  align-items: center;
+                  flex-wrap: nowrap;
+
+                  :global(img) {
+                    max-height: 150px;
+                    max-width: 150px;
+                    min-width: 150px;
+                    min-height: 150px;
+                    padding: 15px;
+                  }
+                }
+                .image-middle-card {
+                  margin-left: 0;
                 }
               }
 
