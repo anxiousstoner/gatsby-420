@@ -221,7 +221,7 @@ export default IndexPage;
 //eslint-disable-next-line no-undef
 export const guery = graphql`
   query IndexQuery {
-    allPrismicBlogPost {
+    allPrismicBlogPost(limit: 9) {
       edges {
         node {
           uid
@@ -242,7 +242,7 @@ export const guery = graphql`
         }
       }
     }
-    allPrismicGuide {
+    allPrismicGuide(limit: 6) {
       edges {
         node {
           id
