@@ -33,6 +33,14 @@ const Bodytext = props => {
             line-height: ${theme.font.lineHeight.xxl};
             margin: 0 0 1.5em;
           }
+          :global(img) {
+            min-width: 100%;
+            max-height: 400px;
+          }
+          :global(iframe) {
+            min-width: 100%;
+            min-height: 400px;
+          }
           :global(ul) {
             list-style: circle;
             margin: 0 0 1.5em;
