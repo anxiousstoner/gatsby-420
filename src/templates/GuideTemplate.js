@@ -86,6 +86,7 @@ export default ({ data }) => {
                 >
                   <TwitterIcon round size={iconSize} />
                 </TwitterShareButton>
+                <br />
                 <GooglePlusShareButton
                   url={url}
                   additionalProps={{
@@ -97,6 +98,7 @@ export default ({ data }) => {
                     {count => <div className="share-count">{filter(count)}</div>}
                   </GooglePlusShareCount>
                 </GooglePlusShareButton>
+                <br />
                 <FacebookShareButton
                   url={url}
                   quote={post.data.title.text}
@@ -109,6 +111,7 @@ export default ({ data }) => {
                     {count => <div className="share-count">{filter(count)}</div>}
                   </FacebookShareCount>
                 </FacebookShareButton>
+                <br />
                 <LinkedinShareButton
                   url={url}
                   title={post.data.title.text}
@@ -190,53 +193,6 @@ export default ({ data }) => {
                 justify-content: space-between;
               }
 
-              @from-width desktop {
-                .card-middle {
-                  display: flex;
-                  align-items: center;
-                  flex-wrap: nowrap;
-
-                  :global(img) {
-                    max-height: 150px;
-                    max-width: 150px;
-                    min-width: 150px;
-                    min-height: 150px;
-                    padding: 15px;
-                  }
-                }
-                .image-middle-card {
-                  margin-left: 0;
-                }
-
-                .feature-number {
-                  padding-top: 75px !important;
-                  padding-bottom: 75px !important;
-                }
-              }
-
-              .feature-number {
-                padding: 50px;
-                font-size: 50px;
-                background: #048208;
-                color: white;
-              }
-
-              .rating-middle {
-                font-size: 14px;
-              }
-
-              .rating-summary {
-                font-size: 12px;
-              }
-
-              .buttons-middle-block {
-                padding: 10px;
-              }
-
-              .button-middle {
-                margin-top: 15px;
-              }
-
               .share {
                 display: flex;
                 flex-direction: column;
@@ -267,6 +223,65 @@ export default ({ data }) => {
                 .label {
                   margin: ${theme.space.inline.m};
                 }
+              }
+
+              @from-width desktop {
+                .card-middle {
+                  display: flex;
+                  align-items: center;
+                  flex-wrap: nowrap;
+
+                  :global(img) {
+                    max-height: 150px;
+                    max-width: 150px;
+                    min-width: 150px;
+                    min-height: 150px;
+                    padding: 15px;
+                  }
+                }
+                .image-middle-card {
+                  margin-left: 0;
+                }
+
+                .feature-number {
+                  padding-top: 75px !important;
+                  padding-bottom: 75px !important;
+                }
+
+                .share {
+                  position: fixed;
+                  top: 20%;
+                  left: 5%;
+                  flex-direction: column;
+                }
+
+                .share .links {
+                  flex-direction: column;
+                  margin-top: 20px;
+                }
+              }
+
+              .feature-number {
+                padding: 50px;
+                font-size: 50px;
+                background: #048208;
+                color: white;
+              }
+
+              .rating-middle {
+                font-size: 14px;
+              }
+
+              .rating-summary {
+                font-size: 12px;
+              }
+
+              .buttons-middle-block {
+                padding: 10px;
+              }
+
+              .button-middle {
+                margin-top: 15px;
               }
             `}</style>
           </Article>

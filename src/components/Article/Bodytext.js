@@ -35,11 +35,18 @@ const Bodytext = props => {
           }
           :global(img) {
             min-width: 100%;
+            max-width: 100%;
             max-height: 400px;
           }
           :global(iframe) {
             min-width: 100%;
-            min-height: 400px;
+            max-width: 100%;
+            max-height: 400px;
+          }
+          @from-width desktop {
+            :global(iframe) {
+              min-height: 400px;
+            }
           }
           :global(ul) {
             list-style: circle;

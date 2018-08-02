@@ -6,6 +6,8 @@ import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import Bodytext from "../components/Article/Bodytext";
 
+import Cardslist from "../components/Card/Cardslist";
+
 import {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -32,6 +34,8 @@ export default ({ data }) => {
   const iconSize = 36;
   const filter = count => (count > 0 ? count : "");
 
+  const postList = data.allPrismicBlogPost;
+
   return (
     <React.Fragment>
       <ThemeContext.Consumer>
@@ -42,6 +46,7 @@ export default ({ data }) => {
               <img src={post.data.image.url} />
             </header>
             <Bodytext theme={theme} html={post.data.body.html} />
+
             <div className="share">
               <span className="label">SHARE</span>
               <div className="links">
@@ -54,6 +59,7 @@ export default ({ data }) => {
                 >
                   <TwitterIcon round size={iconSize} />
                 </TwitterShareButton>
+                <br />
                 <GooglePlusShareButton
                   url={url}
                   additionalProps={{
@@ -65,6 +71,7 @@ export default ({ data }) => {
                     {count => <div className="share-count">{filter(count)}</div>}
                   </GooglePlusShareCount>
                 </GooglePlusShareButton>
+                <br />
                 <FacebookShareButton
                   url={url}
                   quote={post.data.title.text}
@@ -77,6 +84,7 @@ export default ({ data }) => {
                     {count => <div className="share-count">{filter(count)}</div>}
                   </FacebookShareCount>
                 </FacebookShareButton>
+                <br />
                 <LinkedinShareButton
                   url={url}
                   title={post.data.title.text}
@@ -92,6 +100,23 @@ export default ({ data }) => {
                 </LinkedinShareButton>
               </div>
             </div>
+            <Bodytext theme={theme} html="<h1>Latest Blogs:</h1>" />
+            <br />
+            <Cardslist>
+              {postList.edges.map(({ node }, index) => (
+                <div key={index}>
+                  <Link to={"/" + node.uid}>
+                    <div className="card">
+                      <img src={node.data.image.url} alt={node.data.title.text} />
+                      <div className="text">
+                        <h2 className="heading">{node.data.title.text}</h2>
+                        <p className="meta">{node.data.excerpt.text}</p>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </Cardslist>
             <div id="post-comments" className="comments">
               <FacebookProvider appId={facebook.appId}>
                 <FBComments
@@ -101,6 +126,7 @@ export default ({ data }) => {
                 />
               </FacebookProvider>
             </div>
+
             <style jsx>{`
               img {
                 min-width: 100%;
@@ -139,6 +165,55 @@ export default ({ data }) => {
                   margin: ${theme.space.inline.m};
                 }
               }
+
+              .card {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                transition: 0.3s;
+                border-radius: 5px;
+
+                :global(img) {
+                  min-width: 100%;
+                  max-width: 100%;
+                  min-height: 180px;
+                  max-height: 180px;
+                }
+              }
+
+              .text {
+                padding: 0.7em;
+              }
+
+              @from-width desktop {
+                .card {
+                  background: white;
+                  margin: 5px;
+                  width: 223px;
+                }
+
+                .share {
+                  position: fixed;
+                  top: 20%;
+                  left: 5%;
+                  flex-direction: column;
+                }
+
+                .share .links {
+                  flex-direction: column;
+                  margin-top: 20px;
+                }
+
+                .SocialMediaShareButton {
+                  padding: 10px;
+                }
+
+                @media (hover: hover) {
+                  :global(.card:hover) {
+                    -webkit-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    transform: scale(1.1);
+                  }
+                }
+              }
             `}</style>
           </Article>
         )}
@@ -163,6 +238,26 @@ export const query = graphql`
         body {
           html
           text
+        }
+      }
+    }
+    allPrismicBlogPost(limit: 3, sort: { fields: [last_publication_date], order: DESC }) {
+      edges {
+        node {
+          uid
+          data {
+            title {
+              html
+              text
+            }
+            image {
+              url
+            }
+            excerpt {
+              html
+              text
+            }
+          }
         }
       }
     }
