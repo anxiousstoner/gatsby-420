@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Helmet from "react-helmet";
 
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
@@ -38,6 +39,29 @@ export default ({ data }) => {
 
   return (
     <React.Fragment>
+      <Helmet
+        htmlAttributes={{
+          lang: config.siteLanguage,
+          prefix: "og: http://ogp.me/ns#"
+        }}
+      >
+        {/* General tags */}
+        <title>{post.data.title.text}</title>
+        <meta name="description" content={post.data.excerpt.text} />
+        {/* OpenGraph tags */}
+        <meta property="og:url" content={post.data.uid} />
+        <meta property="og:title" content={post.data.title.text} />
+        <meta property="og:description" content={post.data.excerpt.text} />
+        <meta property="og:image" content={post.data.image.url} />
+        <meta property="og:type" content="website" />
+        <meta property="fb:app_id" content={facebook.appId} />
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:creator"
+          content={config.authorTwitterAccount ? config.authorTwitterAccount : ""}
+        />
+      </Helmet>
       <ThemeContext.Consumer>
         {theme => (
           <Article theme={theme}>
@@ -202,10 +226,6 @@ export default ({ data }) => {
                   margin-top: 20px;
                 }
 
-                .SocialMediaShareButton {
-                  padding: 10px;
-                }
-
                 @media (hover: hover) {
                   :global(.card:hover) {
                     -webkit-transform: scale(1.1);
@@ -230,6 +250,9 @@ export const query = graphql`
       data {
         title {
           html
+          text
+        }
+        excerpt {
           text
         }
         image {
