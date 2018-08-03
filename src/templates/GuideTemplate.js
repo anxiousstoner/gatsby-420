@@ -42,11 +42,11 @@ export default ({ data }) => {
         }}
       >
         {/* General tags */}
-        <title>{post.data.title.text}</title>
+        <title>{post.data.title.text + " | 420Smokers.us"}</title>
         <meta name="description" content={post.data.excerpt.text} />
         {/* OpenGraph tags */}
         <meta property="og:url" content={post.data.uid} />
-        <meta property="og:title" content={post.data.title.text} />
+        <meta property="og:title" content={post.data.title.text + " | 420Smokers.us"} />
         <meta property="og:description" content={post.data.excerpt.text} />
         <meta property="og:image" content={post.data.icon.url} />
         <meta property="og:type" content="website" />
