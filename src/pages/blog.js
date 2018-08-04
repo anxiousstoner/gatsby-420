@@ -41,8 +41,8 @@ export default ({ data }) => {
                   :global(img) {
                     min-width: 100%;
                     max-width: 100%;
-                    min-height: 180px;
-                    max-height: 180px;
+                    min-height: 270px;
+                    max-height: 270px;
                   }
                 }
 
@@ -55,6 +55,13 @@ export default ({ data }) => {
                     background: white;
                     margin: 5px;
                     width: 223px;
+
+                    :global(img) {
+                      min-width: 100%;
+                      max-width: 100%;
+                      min-height: 160px;
+                      max-height: 160px;
+                    }
                   }
 
                   @media (hover: hover) {

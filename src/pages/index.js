@@ -175,13 +175,28 @@ class IndexPage extends React.Component {
                   :global(img) {
                     min-width: 100%;
                     max-width: 100%;
-                    min-height: 180px;
-                    max-height: 180px;
+                    min-height: 270px;
+                    max-height: 270px;
                   }
                 }
 
                 .text {
                   padding: 0.7em;
+                }
+
+                @from-width desktop {
+                  .card {
+                    background: white;
+                    margin: 5px;
+                    width: 223px;
+
+                    :global(img) {
+                      min-width: 100%;
+                      max-width: 100%;
+                      min-height: 160px;
+                      max-height: 160px;
+                    }
+                  }
                 }
 
                 .more {
