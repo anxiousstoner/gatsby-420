@@ -11,6 +11,20 @@ import Button from "antd/lib/button";
 import FaThumbsup from "react-icons/lib/fa/thumbs-up";
 import FaThumbsdown from "react-icons/lib/fa/thumbs-down";
 
+import {
+  FacebookShareButton,
+  GooglePlusShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  FacebookShareCount,
+  GooglePlusShareCount,
+  LinkedinShareCount,
+  FacebookIcon,
+  TwitterIcon,
+  GooglePlusIcon,
+  LinkedinIcon
+} from "react-share";
+
 import "antd/lib/button/style/index.css";
 
 import config from "../../content/meta/config";
@@ -18,6 +32,11 @@ import config from "../../content/meta/config";
 export default ({ data }) => {
   const post = data.prismicReview;
   const facebook = data.site.siteMetadata.facebook;
+
+  const url = config.siteUrl + config.pathPrefix + "/" + post.uid;
+
+  const iconSize = 36;
+  const filter = count => (count > 0 ? count : "");
   return (
     <React.Fragment>
       <Helmet
@@ -88,23 +107,57 @@ export default ({ data }) => {
             <br />
             <hr />
             <Bodytext theme={theme} html={post.data.body.html} />
-
-            <div className="highlight">
-              <div className="image">
-                <img src={post.data.image.url} alt={post.data.title.text} />
-              </div>
-              <div className="col1">
-                <h2>{post.data.item_name.text} </h2>
-                <h6 className="rating">{post.data.rating} out of 5 </h6>
-                <h5>{post.data.excerpt.text}</h5>
-                <div className="order-button">
-                  <h6 className="best-price">
-                    Best Price: <span className="price">{"$" + post.data.price}</span>
-                  </h6>
-                  <Button type="primary" href={post.data.url.url}>
-                    {post.data.button_text.text}
-                  </Button>
-                </div>
+            <div className="share">
+              <span className="label">SHARE</span>
+              <div className="links">
+                <TwitterShareButton
+                  url={url}
+                  title={post.data.title.text}
+                  additionalProps={{
+                    "aria-label": "Twitter share"
+                  }}
+                >
+                  <TwitterIcon round size={iconSize} />
+                </TwitterShareButton>
+                <br />
+                <GooglePlusShareButton
+                  url={url}
+                  additionalProps={{
+                    "aria-label": "Google share"
+                  }}
+                >
+                  <GooglePlusIcon round size={iconSize} />
+                  <GooglePlusShareCount url={url}>
+                    {count => <div className="share-count">{filter(count)}</div>}
+                  </GooglePlusShareCount>
+                </GooglePlusShareButton>
+                <br />
+                <FacebookShareButton
+                  url={url}
+                  quote={post.data.title.text}
+                  additionalProps={{
+                    "aria-label": "Facebook share"
+                  }}
+                >
+                  <FacebookIcon round size={iconSize} />
+                  <FacebookShareCount url={url}>
+                    {count => <div className="share-count">{filter(count)}</div>}
+                  </FacebookShareCount>
+                </FacebookShareButton>
+                <br />
+                <LinkedinShareButton
+                  url={url}
+                  title={post.data.title.text}
+                  description={post.data.title.text}
+                  additionalProps={{
+                    "aria-label": "LinkedIn share"
+                  }}
+                >
+                  <LinkedinIcon round size={iconSize} />
+                  <LinkedinShareCount url={url}>
+                    {count => <div className="share-count">{filter(count)}</div>}
+                  </LinkedinShareCount>
+                </LinkedinShareButton>
               </div>
             </div>
             <style jsx>{`
@@ -123,6 +176,28 @@ export default ({ data }) => {
                   max-width: 250px;
                   padding: 15px;
                 }
+              }
+
+              .share {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .links {
+                display: flex;
+                flex-direction: row;
+
+                :global(.SocialMediaShareButton) {
+                  margin: 0 0.8em;
+                  cursor: pointer;
+                }
+              }
+
+              .label {
+                font-size: 1.2em;
+                margin: 0 1em 1em;
               }
 
               .image {
