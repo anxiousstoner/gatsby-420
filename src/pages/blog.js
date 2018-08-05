@@ -105,6 +105,7 @@ export const query = graphql`
             image {
               url
             }
+
             excerpt {
               html
               text
