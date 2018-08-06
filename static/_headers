@@ -6,11 +6,11 @@
   X-Content-Type-Options: nosniff
 /
   # Cache-Control: public, max-age=0, must-revalidate
-/*.js
-  # Cache-Control: public, max-age=0, stale-while-revalidate=0
-/static/*
-  Cache-Control: public, max-age=0, stale-while-revalidate=0
-/favicon.ico
-  # Cache-Control: public, max-age=0, stale-while-revalidate=0
-/icons/*
-  # Cache-Control: public, max-age=0, stale-while-revalidate=0
+  /*.js
+    # Cache-Control: public, max-age=31536000, stale-while-revalidate=2592000
+  /static/*
+    Cache-Control: public, max-age=31536000, stale-while-revalidate=2592000
+  /favicon.ico
+    # Cache-Control: public, max-age=31536000, stale-while-revalidate=2592000
+  /icons/*
+    # Cache-Control: public, max-age=31536000, stale-while-revalidate=2592000
