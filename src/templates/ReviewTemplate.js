@@ -73,7 +73,9 @@ export default ({ data }) => {
                 <img src={post.data.image.url} alt={post.data.title.text} />
               </div>
               <div className="col1">
-                <h2>{post.data.item_name.text} </h2>
+                <p>
+                  <b>{post.data.item_name.text} </b>
+                </p>
                 <p className="rating">{post.data.rating} out of 5 </p>
                 <p>{post.data.excerpt.text}</p>
                 <div className="order-button">
