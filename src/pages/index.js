@@ -6,8 +6,10 @@ import { ThemeContext } from "../layouts";
 import Hero from "../components/Hero";
 import Seo from "../components/Seo";
 import Article from "../components/Article";
-import Headline from "../components/Article/Headline";
+import HomeSection from "../components/Article/HomeSection";
+import Subtitle from "../components/Article/Subtitle";
 import Cardslist from "../components/Card/Cardslist";
+import Bodytext from "../components/Article/Bodytext";
 
 import Button from "antd/lib/button";
 import "antd/lib/button/style/index.css";
@@ -24,6 +26,7 @@ class IndexPage extends React.Component {
       data: {
         allPrismicBlogPost,
         allPrismicGuide,
+        prismicHomepage,
         bgDesktop: {
           resize: { src: desktop }
         },
@@ -57,9 +60,9 @@ class IndexPage extends React.Component {
 
         <ThemeContext.Consumer>
           {theme => (
-            <Article theme={theme}>
+            <HomeSection theme={theme}>
               <header>
-                <Headline title="Our Top Guides To Cannabis Culture" theme={theme} />
+                <Subtitle title="Our Top Guides To Cannabis Culture" theme={theme} />
               </header>
               <Cardslist>
                 {allPrismicGuide.edges.map(({ node }, index) => (
@@ -69,7 +72,7 @@ class IndexPage extends React.Component {
                         <div className="icon">
                           <img src={node.data.icon.url} alt={node.data.title.text} />
                         </div>
-                        <h2 className="heading">{node.data.title.text}</h2>
+                        <h3 className="heading">{node.data.title.text}</h3>
                         <p className="meta">{node.data.subtitle.text}</p>
                       </div>
                     </Link>
@@ -86,6 +89,14 @@ class IndexPage extends React.Component {
                           max-width: 100px;
                           padding: 22px;
                         }
+                      }
+
+                      h3 {
+                        font-size: 1.5em;
+                        -webkit-margin-before: 0.83em;
+                        -webkit-margin-after: 0.83em;
+                        -webkit-margin-start: 0px;
+                        -webkit-margin-end: 0px;
                       }
 
                       .icon {
@@ -105,7 +116,7 @@ class IndexPage extends React.Component {
                         .card {
                           background: white;
                           margin: 5px;
-                          width: 223px;
+                          width: 211px;
                         }
 
                         @media (hover: hover) {
@@ -131,16 +142,18 @@ class IndexPage extends React.Component {
                   }
                 `}</style>
               </div>
-            </Article>
+              <div className="Body">
+                <Bodytext theme={theme} html={prismicHomepage.data.body.html} />
+              </div>
+            </HomeSection>
           )}
         </ThemeContext.Consumer>
 
         <ThemeContext.Consumer>
           {theme => (
-            <Article theme={theme}>
-              <header>
-                <Headline title="Our Latest Blogs" theme={theme} />
-              </header>
+            <HomeSection theme={theme}>
+              <Subtitle title="Our Latest Blogs" theme={theme} />
+
               <Cardslist>
                 {allPrismicBlogPost.edges.map(({ node }, index) => (
                   <div key={index}>
@@ -148,7 +161,7 @@ class IndexPage extends React.Component {
                       <div className="card">
                         <img src={node.data.image.url} alt="{node.data.title.text}" />
                         <div className="text">
-                          <h2 className="heading">{node.data.title.text}</h2>
+                          <h3 className="heading">{node.data.title.text}</h3>
                           <p className="meta">{node.data.excerpt.text}</p>
                         </div>
                       </div>
@@ -160,6 +173,9 @@ class IndexPage extends React.Component {
                 <Button type="primary" href="./blog">
                   See all our blogs
                 </Button>
+              </div>
+              <div className="Body2">
+                <Bodytext theme={theme} html={prismicHomepage.data.body2.html} />
               </div>
               <style jsx>{`
                 hr {
@@ -182,6 +198,14 @@ class IndexPage extends React.Component {
 
                 .text {
                   padding: 0.7em;
+                }
+
+                h3 {
+                  font-size: 1.5em;
+                  -webkit-margin-before: 0.83em;
+                  -webkit-margin-after: 0.83em;
+                  -webkit-margin-start: 0px;
+                  -webkit-margin-end: 0px;
                 }
 
                 @from-width desktop {
@@ -208,7 +232,7 @@ class IndexPage extends React.Component {
                   .card {
                     background: white;
                     margin: 5px;
-                    width: 223px;
+                    width: 220px;
                   }
 
                   @media (hover: hover) {
@@ -220,7 +244,7 @@ class IndexPage extends React.Component {
                   }
                 }
               `}</style>
-            </Article>
+            </HomeSection>
           )}
         </ThemeContext.Consumer>
 
@@ -239,7 +263,7 @@ export default IndexPage;
 //eslint-disable-next-line no-undef
 export const guery = graphql`
   query IndexQuery {
-    allPrismicBlogPost(limit: 9, sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogPost(limit: 8, sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           uid
@@ -260,7 +284,7 @@ export const guery = graphql`
         }
       }
     }
-    allPrismicGuide(limit: 6) {
+    allPrismicGuide(limit: 8) {
       edges {
         node {
           id
@@ -300,6 +324,22 @@ export const guery = graphql`
     bgMobile: imageSharp(id: { regex: "/hero-background/" }) {
       resize(width: 450, height: 850, quality: 90, cropFocus: CENTER) {
         src
+      }
+    }
+    prismicHomepage {
+      data {
+        title {
+          html
+          text
+        }
+        body {
+          html
+          text
+        }
+        body2 {
+          html
+          text
+        }
       }
     }
   }
