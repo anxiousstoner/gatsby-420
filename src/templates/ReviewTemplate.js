@@ -68,14 +68,21 @@ export default ({ data }) => {
             <header>
               <Headline title={post.data.title.text} theme={theme} />
             </header>
-            <div className="highlight">
+            <div className="highlight" itemScope itemType="http://schema.org/Offer">
               <div className="image">
                 <img src={post.data.image.url} alt={post.data.title.text} />
               </div>
-              <div className="col1">
+              <div
+                className="col1"
+                itemProp="reviews"
+                itemScope
+                itemType="http://schema.org/AggregateRating"
+              >
                 <p>
                   <b>{post.data.item_name.text} </b>
                 </p>
+                <meta itemProp="ratingValue" content={post.data.rating} />
+                <meta itemProp="bestRating" content="5" />
                 <p className="rating">{post.data.rating} out of 5 </p>
                 <p>{post.data.excerpt.text}</p>
                 <div className="order-button">
