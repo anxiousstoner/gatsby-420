@@ -76,8 +76,13 @@ export default ({ data }) => {
                 <p itemProp="name">
                   <b>{post.data.item_name.text} </b>
                 </p>
-                <p className="rating">
-                  <span itemProp="ratingValue">{post.data.rating}</span> out of 5{" "}
+                <p
+                  className="rating"
+                  itemProp="aggregateRating"
+                  itemScope
+                  itemType="http://schema.org/AggregateRating"
+                >
+                  <span itemProp="ratingValue">{post.data.rating}</span> out of 5
                 </p>
                 <p itemProp="description">{post.data.excerpt.text}</p>
                 <div
@@ -91,7 +96,7 @@ export default ({ data }) => {
                     <span className="price" itemProp="priceCurrency" content="USD">
                       $
                     </span>
-                    <span className="price" itemProp="price" content="1000.00">
+                    <span className="price" itemProp="price" content={post.data.price}>
                       {post.data.price}
                     </span>
                     <p itemProp="availability">In Stock</p>
