@@ -78,12 +78,16 @@ export default ({ data }) => {
                 </p>
                 <p
                   className="rating"
-                  itemProp="aggregateRating"
+                  itemProp="reviewRating"
                   itemScope
-                  itemType="http://schema.org/AggregateRating"
+                  itemType="http://schema.org/Rating"
                 >
-                  <span itemProp="ratingValue">{post.data.rating}</span> out of 5
+                  <meta itemProp="worstRating" content="1" />
+                  <span itemProp="ratingValue">{post.data.rating}</span>
+                  out of
+                  <span itemProp="bestRating">5</span>
                 </p>
+
                 <p itemProp="description">{post.data.excerpt.text}</p>
                 <div
                   className="order-button"
