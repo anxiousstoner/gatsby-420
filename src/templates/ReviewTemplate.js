@@ -11,6 +11,8 @@ import Button from "antd/lib/button";
 import FaThumbsup from "react-icons/lib/fa/thumbs-up";
 import FaThumbsdown from "react-icons/lib/fa/thumbs-down";
 
+import ReactStars from "react-stars";
+
 import {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -76,18 +78,13 @@ export default ({ data }) => {
                 <p itemProp="name">
                   <b>{post.data.item_name.text} </b>
                 </p>
-                <p
-                  className="rating"
-                  itemProp="reviewRating"
-                  itemScope
-                  itemType="http://schema.org/Rating"
-                >
-                  <meta itemProp="worstRating" content="1" />
-                  <span itemProp="ratingValue">{post.data.rating}</span>
-                  out of
-                  <span itemProp="bestRating">5</span>
-                </p>
-
+                <ReactStars
+                  count={5}
+                  edit={false}
+                  value={post.data.rating}
+                  size={24}
+                  color2={"#ffd700"}
+                />,
                 <p itemProp="description">{post.data.excerpt.text}</p>
                 <div
                   className="order-button"

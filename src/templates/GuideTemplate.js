@@ -9,6 +9,8 @@ import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import Bodytext from "../components/Article/Bodytext";
 
+import ReactStars from "react-stars";
+
 import {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -80,7 +82,13 @@ export default ({ data }) => {
                     <div className="details-middle">
                       <h3 className="featured-title-middle">{node.data.title.text}</h3>
                       <p className="rating-middle">
-                        <b>{node.data.rating} out of 5</b>
+                        <ReactStars
+                          count={5}
+                          edit={false}
+                          value={node.data.rating}
+                          size={22}
+                          color2={"#ffd700"}
+                        />,
                       </p>
                       <p className="rating-summary">{node.data.excerpt.text}</p>
                     </div>
