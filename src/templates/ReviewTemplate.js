@@ -68,26 +68,33 @@ export default ({ data }) => {
             <header>
               <Headline title={post.data.title.text} theme={theme} />
             </header>
-            <div className="highlight" itemScope itemType="http://schema.org/Offer">
+            <div className="highlight" itemScope itemType="http://schema.org/Product">
               <div className="image">
-                <img src={post.data.image.url} alt={post.data.title.text} />
+                <img itemProp="image" src={post.data.image.url} alt={post.data.title.text} />
               </div>
-              <div
-                className="col1"
-                itemProp="reviews"
-                itemScope
-                itemType="http://schema.org/AggregateRating"
-              >
-                <p>
+              <div className="col1">
+                <p itemProp="name">
                   <b>{post.data.item_name.text} </b>
                 </p>
-                <meta itemProp="ratingValue" content={post.data.rating} />
-                <meta itemProp="bestRating" content="5" />
-                <p className="rating">{post.data.rating} out of 5 </p>
-                <p>{post.data.excerpt.text}</p>
-                <div className="order-button">
+                <p className="rating">
+                  <span itemProp="ratingValue">{post.data.rating}</span> out of 5{" "}
+                </p>
+                <p itemProp="description">{post.data.excerpt.text}</p>
+                <div
+                  className="order-button"
+                  itemProp="offers"
+                  itemScope
+                  itemType="http://schema.org/Offer"
+                >
                   <h6 className="best-price">
-                    Best Price: <span className="price">{"$" + post.data.price}</span>
+                    Best Price:{" "}
+                    <span className="price" itemProp="priceCurrency" content="USD">
+                      $
+                    </span>
+                    <span className="price" itemProp="price" content="1000.00">
+                      {post.data.price}
+                    </span>
+                    <p itemProp="availability">In Stock</p>
                   </h6>
                   <Button type="primary" href={post.data.url.url}>
                     {post.data.button_text.text}
