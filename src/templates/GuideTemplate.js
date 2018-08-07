@@ -78,7 +78,7 @@ export default ({ data }) => {
                       <img src={node.data.image.url} />
                     </div>
                     <div className="details-middle">
-                      <h3 className="featured-title-middle">{node.data.item_name.text}</h3>
+                      <h3 className="featured-title-middle">{node.data.title.text}</h3>
                       <p className="rating-middle">
                         <b>{node.data.rating} out of 5</b>
                       </p>
@@ -360,6 +360,9 @@ export const query = graphql`
           tags
           uid
           data {
+            title {
+              text
+            }
             item_name {
               html
               text
