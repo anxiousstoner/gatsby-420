@@ -43,11 +43,11 @@ export default ({ data }) => {
       >
         {/* General tags */}
         <title>{post.data.title.text + " | 420Smokers.us"}</title>
-        <meta name="description" content={post.data.excerpt.text} />
+        <meta name="description" content={post.data.subtitle.text} />
         {/* OpenGraph tags */}
         <meta property="og:url" content={post.data.uid} />
         <meta property="og:title" content={post.data.title.text + " | 420Smokers.us"} />
-        <meta property="og:description" content={post.data.excerpt.text} />
+        <meta property="og:description" content={post.data.subtitle.text} />
         <meta property="og:image" content={post.data.icon.url} />
         <meta property="og:type" content="website" />
         <meta property="fb:app_id" content={facebook.appId} />
@@ -75,7 +75,7 @@ export default ({ data }) => {
                   <div className="card-middle">
                     <p className="feature-number">{index + 1}</p>
                     <div className="image-middle-card">
-                      <img src={node.data.image.url} />
+                      <img src={node.data.image.url} alt={node.data.title.text} />
                     </div>
                     <div className="details-middle">
                       <h3 className="featured-title-middle">{node.data.title.text}</h3>
