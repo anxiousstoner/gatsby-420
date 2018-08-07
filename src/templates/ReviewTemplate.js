@@ -74,8 +74,8 @@ export default ({ data }) => {
               </div>
               <div className="col1">
                 <h2>{post.data.item_name.text} </h2>
-                <h6 className="rating">{post.data.rating} out of 5 </h6>
-                <h5>{post.data.excerpt.text}</h5>
+                <p className="rating">{post.data.rating} out of 5 </p>
+                <p>{post.data.excerpt.text}</p>
                 <div className="order-button">
                   <h6 className="best-price">
                     Best Price: <span className="price">{"$" + post.data.price}</span>
@@ -88,19 +88,19 @@ export default ({ data }) => {
             </div>
             <div className="pros-cons">
               <div className="pros">
-                <h2 className="thumbs">
+                <p className="thumbs">
                   <span>
                     <FaThumbsup />
                   </span>Pros
-                </h2>
+                </p>
                 <div dangerouslySetInnerHTML={{ __html: post.data.pros.html }} />
               </div>
               <div className="cons">
-                <h2 className="thumbs">
+                <p className="thumbs">
                   <span>
                     <FaThumbsdown />
                   </span>Cons
-                </h2>
+                </p>
                 <div dangerouslySetInnerHTML={{ __html: post.data.cons.html }} />
               </div>
             </div>
@@ -216,6 +216,7 @@ export default ({ data }) => {
                 font-size: 0.8em;
                 color: #0f610f;
                 margin-bottom: 5px;
+                font-weight: 700;
               }
 
               .best-price {
@@ -249,6 +250,7 @@ export default ({ data }) => {
 
               .thumbs {
                 margin-bottom: 15px;
+                font-size: 24px;
               }
 
               @from-width desktop {
