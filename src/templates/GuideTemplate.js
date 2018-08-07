@@ -73,12 +73,12 @@ export default ({ data }) => {
               {data.allPrismicReview.edges.map(({ node }, index) => (
                 <div key={index}>
                   <div className="card-middle">
-                    <h1 className="feature-number">{index + 1}</h1>
+                    <p className="feature-number">{index + 1}</p>
                     <div className="image-middle-card">
                       <img src={node.data.image.url} />
                     </div>
                     <div className="details-middle">
-                      <h2 className="featured-title-middle">{node.data.item_name.text}</h2>
+                      <h3 className="featured-title-middle">{node.data.item_name.text}</h3>
                       <p className="rating-middle">
                         <b>{node.data.rating} out of 5</b>
                       </p>
