@@ -41,7 +41,7 @@ class Header extends React.Component {
               <img src={avatar} alt={config.siteTitle} />
             </div>
             <div className="type">
-              <h2>{config.headerTitle}</h2>
+              <p>{config.headerTitle}</p>
               <h3>{config.headerSubTitle}</h3>
             </div>
           </Link>
@@ -97,7 +97,7 @@ class Header extends React.Component {
             }
           }
 
-          h2 {
+          p {
             font-size: ${theme.font.size.m};
             font-weight: ${theme.font.weight.standard};
             margin: ${theme.space.stack.xs};
@@ -154,7 +154,7 @@ class Header extends React.Component {
               }
 
               :global(a.logoType),
-              h2 {
+              p {
                 color: ${theme.color.neutral.white};
               }
               h3 {
@@ -184,7 +184,7 @@ class Header extends React.Component {
                 width: 100%;
                 z-index: 1;
 
-                h2 {
+                p {
                   margin: ${theme.space.stack.xxs};
                 }
 
@@ -195,7 +195,7 @@ class Header extends React.Component {
 
               &.homepage:not(.fixed) {
                 :global(a.logoType),
-                h2 {
+                p {
                   color: ${theme.color.neutral.white};
                 }
                 h3 {
