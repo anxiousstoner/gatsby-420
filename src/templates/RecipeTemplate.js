@@ -90,7 +90,7 @@ export default ({ data }) => {
               <div className="row">
                 <meta itemProp="keywords" content={post.data.keywords.text} />
                 <meta itemProp="recipeCuisine" content={post.data.cuisine.text} />
-                <div itemProp="nutrition">
+                <div itemProp="nutrition" itemScope>
                   <meta itemProp="calories" content={post.data.nutrition.text} />
                 </div>
                 <div
@@ -180,14 +180,13 @@ export default ({ data }) => {
                     </p>
                     <span itemProp="reviewRating" itemScope itemType="http://schema.org/Rating">
                       <ReactStars
-                        itemProp="ratingValue"
-                        content={post.data.rating.text}
                         count={5}
                         edit={false}
                         value={post.data.rating.text}
                         size={24}
                         color2={"#ffd700"}
-                      />,
+                      />
+                      <meta itemProp="ratingValue" content={post.data.rating.text} />
                       <meta itemProp="bestRating" content="5" />
                     </span>
                   </span>
