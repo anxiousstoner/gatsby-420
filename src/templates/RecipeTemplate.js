@@ -90,7 +90,7 @@ export default ({ data }) => {
               <div className="row">
                 <meta itemProp="keywords" content={post.data.keywords.text} />
                 <meta itemProp="recipeCuisine" content={post.data.cuisine.text} />
-                <meta itemProp="recipeInstructions" content={post.data.instructions.html} />
+                <meta itemProp="recipeInstructions" content={post.data.instructions.text} />
                 <div
                   itemProp="nutrition"
                   itemType="http://schema.org/NutritionInformation"

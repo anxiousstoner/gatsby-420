@@ -173,13 +173,7 @@ module.exports = {
       }
     },
     `gatsby-plugin-offline`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: "UA-81465046-1",
-        head: true
-      }
-    },
+
     {
       resolve: `gatsby-plugin-feed`,
       options: {
