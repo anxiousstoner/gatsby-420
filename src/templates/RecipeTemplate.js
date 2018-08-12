@@ -88,6 +88,19 @@ export default ({ data }) => {
             <Bodytext theme={theme} html={post.data.body.html} />
             <div className="highlight" itemScope itemType="http://schema.org/Recipe">
               <div className="row">
+                <meta itemProp="keywords" content={post.data.keywords.text} />
+                <meta itemProp="recipeCuisine" content={post.data.cuisine.text} />
+                <div itemProp="nutrition">
+                  <meta itemProp="calories" content={post.data.nutrition.text} />
+                </div>
+                <div
+                  itemProp="aggregateRating"
+                  itemScope
+                  itemType="http://schema.org/aggregateRating"
+                >
+                  <meta itemProp="ratingValue" content={post.data.rating.text} />
+                  <meta itemProp="ratingCount" content="1" />
+                </div>
                 <div className="image">
                   <img itemProp="image" src={post.data.image.url} alt={post.data.title.text} />
                 </div>
@@ -95,18 +108,31 @@ export default ({ data }) => {
                   <p>
                     <b itemProp="name">{post.data.title.text} </b>
                   </p>
-                  By <span itemProp="author">{post.data.author}</span>
-                  <ReactStars count={5} edit={false} value={4.5} size={24} color2={"#ffd700"} />,
+                  By{" "}
+                  <span itemProp="author" itemType="http://schema.org/Person" itemScope>
+                    <span itemProp="name">{post.data.author}</span>
+                  </span>
+                  <ReactStars
+                    count={5}
+                    edit={false}
+                    value={post.data.rating.text}
+                    size={24}
+                    color2={"#ffd700"}
+                  />
                   <p itemProp="description">{post.data.excerpt.text}</p>
                   <div className="tags">
-                    <h6 className="tag" temprop="recipeCategory">
+                    <h6 className="tag" itemProp="recipeCategory">
                       {post.data.category.text}
                     </h6>
                     <h6 className="tag" itemProp="suitableForDiet">
                       {post.data.diet_tags.text}
                     </h6>
-                    <h6 className="tag" itemProp="totalTime">
-                      {post.data.total_time.text}
+                    <h6
+                      className="tag"
+                      itemProp="totalTime"
+                      content={`PT${post.data.total_time.text}M`}
+                    >
+                      {post.data.total_time.text} minutes
                     </h6>
                     <h6 className="tag" itemProp="recipeYield">
                       {post.data.yield.text}
@@ -114,7 +140,6 @@ export default ({ data }) => {
                   </div>
                 </div>
               </div>
-
               <div className="list">
                 <ul>
                   {nothing(post.data.ingredient1)}
@@ -135,32 +160,52 @@ export default ({ data }) => {
                   itemprop="recipeInstructions"
                   theme={theme}
                   html={post.data.instructions.html}
-                />
+                >
+                  {post.data.instructions.html}
+                </Bodytext>
               </div>
               <hr />
-              <div className="card-body">
-                <span>
+              <div className="card-body row">
+                <div className="col-nute">
                   <a itemProp="url" href={url} target="_blank">
                     <span itemProp="name">
                       <strong>{post.data.title.text}</strong>
                     </span>
                   </a>
-                </span>
-                <p />
-                <p itemProp="description">{post.data.excerpt.text}</p>
-                <p itemProp="author" itemScope itemType="http://schema.org/Person">
-                  <strong>Written by:</strong> <span itemProp="name">{post.data.author}</span>
-                </p>
-                <span itemProp="reviewRating" itemScope itemType="http://schema.org/Rating">
-                  <strong>Rating:</strong> <span itemProp="ratingValue">4.5</span> out of{" "}
-                  <span itemProp="bestRating">5</span>
-                </span>
+
+                  <p itemProp="description">{post.data.excerpt.text}</p>
+                  <span itemProp="review" itemScope itemType="http://schema.org/Review">
+                    <p itemProp="author" itemScope itemType="http://schema.org/Person">
+                      <span itemProp="name">{post.data.author}</span>
+                    </p>
+                    <span itemProp="reviewRating" itemScope itemType="http://schema.org/Rating">
+                      <ReactStars
+                        itemProp="ratingValue"
+                        content={post.data.rating.text}
+                        count={5}
+                        edit={false}
+                        value={post.data.rating.text}
+                        size={24}
+                        color2={"#ffd700"}
+                      />,
+                      <meta itemProp="bestRating" content="5" />
+                    </span>
+                  </span>
+                  <div className="image">
+                    <img itemProp="image" src={post.data.image.url} alt={post.data.title.text} />
+                  </div>
+                </div>
+                <div className="nutritional-image">
+                  <img
+                    src={post.data.information.url}
+                    alt={`${post.data.title.text} nutritional information`}
+                  />
+                </div>
                 <span itemProp="publisher" itemScope itemType="http://schema.org/Organization">
                   <meta itemProp="name" content="420Smokers" />
                 </span>
               </div>
             </div>
-
             <div className="share">
               <span className="label">SHARE</span>
               <div className="links">
@@ -218,83 +263,87 @@ export default ({ data }) => {
               img {
                 max-width: 100%;
               }
-
               .highlight {
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                 transition: 0.3s;
                 border-radius: 5px;
                 align-self: center;
-
                 :global(img) {
                   min-height: 250px;
                   max-height: 300px;
                   min-width: 100%;
                 }
               }
-
               .share {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
               }
-
               .links {
                 display: flex;
                 flex-direction: row;
-
                 :global(.SocialMediaShareButton) {
                   margin: 0 0.8em;
                   cursor: pointer;
                 }
               }
-
               .label {
                 font-size: 1.2em;
                 margin: 0 1em 1em;
               }
-
               .image {
                 width: 100%;
                 text-align: center;
               }
-
               .col1 {
                 margin: 15px;
               }
-
               .list {
                 margin: 25px;
               }
-
               .tags {
                 margin-top: 20px;
                 text-align: center;
                 display: flex;
                 justify-content: space-between;
               }
-
               .tag {
                 border: 0.5px #464545;
                 border-style: solid;
                 border-radius: 8%;
                 padding: 10px;
               }
-
               .card-body {
                 margin: 15px;
                 padding-bottom: 2px;
               }
 
+              .col-nute {
+                min-width: 50%;
+              }
+
+              .nutritional-image {
+                :global(img) {
+                  min-height: 600px;
+                }
+              }
+
               @from-width desktop {
                 .row {
                   display: flex;
-
                   :global(img) {
-                    min-height: 200px !important;
                     min-width: 100% !important;
                     max-width: 200px !important;
                     padding: 0px;
+                  }
+                }
+
+                .nutritional-image {
+                  min-width: 50%;
+
+                  :global(img) {
+                    min-height: 500px;
                   }
                 }
               }
@@ -328,6 +377,7 @@ export const query = graphql`
         image {
           url
         }
+
         body {
           html
           text
@@ -341,14 +391,14 @@ export const query = graphql`
           text
         }
         author
-        prep_time {
+        rating {
           html
           text
         }
-        prep_time {
-          text
+        information {
+          url
         }
-        cook_time {
+        cuisine {
           html
           text
         }
@@ -361,6 +411,9 @@ export const query = graphql`
         }
         diet_tags {
           html
+          text
+        }
+        nutrition {
           text
         }
         ingredient1
