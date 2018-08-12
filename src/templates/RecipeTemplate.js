@@ -138,7 +138,7 @@ export default ({ data }) => {
                 />
               </div>
               <hr />
-              <div className="card-body" itemScope itemType="http://schema.org/Review">
+              <div className="card-body">
                 <span>
                   <a itemProp="url" href={url} target="_blank">
                     <span itemProp="name">
