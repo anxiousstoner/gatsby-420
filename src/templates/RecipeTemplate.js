@@ -32,9 +32,23 @@ import "antd/lib/button/style/index.css";
 import config from "../../content/meta/config";
 
 export default ({ data }) => {
-  const post = data.prismicReview;
+  const post = data.prismicRecipe;
   const facebook = data.site.siteMetadata.facebook;
-
+  const nothing = ingredient => {
+    if (ingredient === "none") {
+      return;
+    } else
+      return (
+        <li itemProp="recipeIngredient">
+          {ingredient}
+          <style jsx>{`
+            li {
+              margin: 5px;
+            }
+          `}</style>;
+        </li>
+      );
+  };
   const url = config.siteUrl + config.pathPrefix + "/" + post.uid;
 
   const iconSize = 36;
@@ -69,66 +83,85 @@ export default ({ data }) => {
           <Article theme={theme}>
             <header>
               <Headline title={post.data.title.text} theme={theme} />
+              <img src={post.data.image.url} />
             </header>
-            <div className="highlight" itemScope itemType="http://schema.org/Product">
-              <div className="image">
-                <img itemProp="image" src={post.data.image.url} alt={post.data.title.text} />
-              </div>
-              <div className="col1">
-                <p itemProp="name">
-                  <b>{post.data.item_name.text} </b>
-                </p>
-                <ReactStars
-                  count={5}
-                  edit={false}
-                  value={post.data.rating}
-                  size={24}
-                  color2={"#ffd700"}
-                />,
-                <p itemProp="description">{post.data.excerpt.text}</p>
-                <div
-                  className="order-button"
-                  itemProp="offers"
-                  itemScope
-                  itemType="http://schema.org/Offer"
-                >
-                  <h6 className="best-price">
-                    Best Price:{" "}
-                    <span className="price" itemProp="priceCurrency" content="USD">
-                      $
-                    </span>
-                    <span className="price" itemProp="price" content={post.data.price}>
-                      {post.data.price}
-                    </span>
-                    <p itemProp="availability">In Stock</p>
-                  </h6>
-                  <Button type="primary" href={post.data.url.url} target="_blank">
-                    {post.data.button_text.text}
-                  </Button>
+            <Bodytext theme={theme} html={post.data.body.html} />
+            <div className="highlight" itemScope itemType="http://schema.org/Recipe">
+              <div className="row">
+                <div className="image">
+                  <img itemProp="image" src={post.data.image.url} alt={post.data.title.text} />
+                </div>
+                <div className="col1">
+                  <p>
+                    <b itemProp="name">{post.data.title.text} </b>
+                  </p>
+                  By <span itemProp="author">{post.data.author}</span>
+                  <ReactStars count={5} edit={false} value={4.5} size={24} color2={"#ffd700"} />,
+                  <p itemProp="description">{post.data.excerpt.text}</p>
+                  <div className="tags">
+                    <h6 className="tag" temprop="recipeCategory">
+                      {post.data.category.text}
+                    </h6>
+                    <h6 className="tag" itemProp="suitableForDiet">
+                      {post.data.diet_tags.text}
+                    </h6>
+                    <h6 className="tag" itemProp="totalTime">
+                      {post.data.total_time.text}
+                    </h6>
+                    <h6 className="tag" itemProp="recipeYield">
+                      {post.data.yield.text}
+                    </h6>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="pros-cons">
-              <div className="pros">
-                <p className="thumbs">
-                  <span>
-                    <FaThumbsup />
-                  </span>Pros
-                </p>
-                <div dangerouslySetInnerHTML={{ __html: post.data.pros.html }} />
+
+              <div className="list">
+                <ul>
+                  {nothing(post.data.ingredient1)}
+                  {nothing(post.data.ingredient2)}
+                  {nothing(post.data.ingredient3)}
+                  {nothing(post.data.ingredient4)}
+                  {nothing(post.data.ingredient5)}
+                  {nothing(post.data.ingredient6)}
+                  {nothing(post.data.ingredient7)}
+                  {nothing(post.data.ingredient8)}
+                  {nothing(post.data.ingredient9)}
+                  {nothing(post.data.ingredient10)}
+                </ul>
               </div>
-              <div className="cons">
-                <p className="thumbs">
-                  <span>
-                    <FaThumbsdown />
-                  </span>Cons
+              <hr />
+              <div className="card-body">
+                <Bodytext
+                  itemprop="recipeInstructions"
+                  theme={theme}
+                  html={post.data.instructions.html}
+                />
+              </div>
+              <hr />
+              <div className="card-body" itemScope itemType="http://schema.org/Review">
+                <span itemProp="itemReviewed" itemScope itemType="http://schema.org/Thing">
+                  <a itemProp="url" href={url} target="_blank">
+                    <span itemProp="name">
+                      <strong>{post.data.title.text}</strong>
+                    </span>
+                  </a>
+                </span>
+
+                <p itemProp="description">{post.data.excerpt.text}</p>
+                <p itemProp="author" itemScope itemType="http://schema.org/Person">
+                  <strong>Written by:</strong> <span itemProp="name">{post.data.author}</span>
                 </p>
-                <div dangerouslySetInnerHTML={{ __html: post.data.cons.html }} />
+                <span itemProp="reviewRating" itemScope itemType="http://schema.org/Rating">
+                  <meta itemProp="ratingValue" value="4.5" />
+                  <meta itemProp="bestRating" value="5" />
+                  <ReactStars count={5} edit={false} value={4.5} size={24} color2={"#ffd700"} />,
+                </span>
+                <span itemProp="publisher" itemScope itemType="http://schema.org/Organization">
+                  <meta itemProp="name" content="420Smokers" />
+                </span>
               </div>
             </div>
-            <br />
-            <hr />
-            <Bodytext theme={theme} html={post.data.body.html} />
+
             <div className="share">
               <span className="label">SHARE</span>
               <div className="links">
@@ -183,9 +216,11 @@ export default ({ data }) => {
               </div>
             </div>
             <style jsx>{`
+              img {
+                max-width: 100%;
+              }
+
               .highlight {
-                padding: 2em;
-                margin: 1em;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                 transition: 0.3s;
                 border-radius: 5px;
@@ -193,10 +228,8 @@ export default ({ data }) => {
 
                 :global(img) {
                   min-height: 250px;
-                  max-height: 250px;
-                  min-width: 250px;
-                  max-width: 250px;
-                  padding: 15px;
+                  max-height: 300px;
+                  min-width: 100%;
                 }
               }
 
@@ -228,63 +261,41 @@ export default ({ data }) => {
               }
 
               .col1 {
-                margin-top: 10px;
-                margin-bottom: 10px;
+                margin: 15px;
               }
 
-              .rating {
-                margin-top: 5px;
-                letter-spacing: 0.1em;
-                font-size: 0.8em;
-                color: #0f610f;
-                margin-bottom: 5px;
-                font-weight: 700;
+              .list {
+                margin: 25px;
               }
 
-              .best-price {
-                padding-top: 10px;
-              }
-
-              .order-button {
+              .tags {
                 margin-top: 20px;
                 text-align: center;
                 display: flex;
                 justify-content: space-between;
               }
 
-              .price {
-                color: green;
+              .tag {
+                border: 0.5px #464545;
+                border-style: solid;
+                border-radius: 8%;
+                padding: 10px;
               }
 
-              .pros-cons {
-                display: flex;
-                justify-content: space-around;
-                padding: 1em;
-              }
-
-              .pros {
-                padding: 1em;
-              }
-
-              .cons {
-                padding: 1em;
-              }
-
-              .thumbs {
-                margin-bottom: 15px;
-                font-size: 24px;
+              .card-body {
+                margin: 15px;
+                padding-bottom: 2px;
               }
 
               @from-width desktop {
-                .highlight {
+                .row {
                   display: flex;
 
                   :global(img) {
-                    min-height: 230px !important;
-                    max-height: 230px !important;
-                    min-width: 200px !important;
+                    min-height: 200px !important;
+                    min-width: 100% !important;
                     max-width: 200px !important;
-                    padding: 15px;
+                    padding: 0px;
                   }
                 }
               }
@@ -297,7 +308,7 @@ export default ({ data }) => {
 };
 
 export const query = graphql`
-  query ReviewQuery($slug: String!) {
+  query RecipeQuery($slug: String!) {
     site {
       siteMetadata {
         facebook {
@@ -305,44 +316,67 @@ export const query = graphql`
         }
       }
     }
-    prismicReview(uid: { eq: $slug }) {
+    prismicRecipe(uid: { eq: $slug }) {
       uid
       data {
-        item_name {
-          text
-        }
-        rating
-        price
-        image {
-          url
-        }
         title {
           html
           text
         }
-
         excerpt {
-          html
           text
+        }
+        image {
+          url
         }
         body {
           html
           text
         }
-        pros {
+        keywords {
           html
           text
         }
-        cons {
+        category {
           html
           text
         }
-        button_text {
+        author
+        prep_time {
           html
           text
         }
-        url {
-          url
+        prep_time {
+          text
+        }
+        cook_time {
+          html
+          text
+        }
+        total_time {
+          text
+        }
+        yield {
+          html
+          text
+        }
+        diet_tags {
+          html
+          text
+        }
+        ingredient1
+        ingredient2
+        ingredient3
+        ingredient4
+        ingredient5
+        ingredient6
+        ingredient7
+        ingredient8
+        ingredient9
+        ingredient10
+        instructions {
+          html
+          text
         }
       }
     }

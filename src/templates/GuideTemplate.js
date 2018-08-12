@@ -97,7 +97,7 @@ export default ({ data }) => {
                         <Button href={"/" + node.uid}>More Info</Button>
                       </div>
                       <div className="button-middle">
-                        <Button type="primary" href={node.data.url.url}>
+                        <Button type="primary" href={node.data.url.url} target="_blank">
                           Buy Now
                         </Button>
                       </div>
