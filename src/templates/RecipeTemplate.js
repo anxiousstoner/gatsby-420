@@ -139,22 +139,21 @@ export default ({ data }) => {
               </div>
               <hr />
               <div className="card-body" itemScope itemType="http://schema.org/Review">
-                <span itemProp="itemReviewed" itemScope itemType="http://schema.org/Thing">
+                <span>
                   <a itemProp="url" href={url} target="_blank">
                     <span itemProp="name">
                       <strong>{post.data.title.text}</strong>
                     </span>
                   </a>
                 </span>
-
+                <p />
                 <p itemProp="description">{post.data.excerpt.text}</p>
                 <p itemProp="author" itemScope itemType="http://schema.org/Person">
                   <strong>Written by:</strong> <span itemProp="name">{post.data.author}</span>
                 </p>
                 <span itemProp="reviewRating" itemScope itemType="http://schema.org/Rating">
-                  <meta itemProp="ratingValue" value="4.5" />
-                  <meta itemProp="bestRating" value="5" />
-                  <ReactStars count={5} edit={false} value={4.5} size={24} color2={"#ffd700"} />,
+                  <strong>Rating:</strong> <span itemProp="ratingValue">4.5</span> out of{" "}
+                  <span itemProp="bestRating">5</span>
                 </span>
                 <span itemProp="publisher" itemScope itemType="http://schema.org/Organization">
                   <meta itemProp="name" content="420Smokers" />
