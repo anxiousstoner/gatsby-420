@@ -58,7 +58,12 @@ const Contact = props => {
       <div className="form">
         <ThemeContext.Consumer>
           {theme => (
-            <Form onSubmit={handleSubmit} data-netlify="true" data-netlify-honeypot="bot-field">
+            <Form
+              name="contact"
+              onSubmit={handleSubmit}
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
               <FormItem label="Name" name="name">
                 {getFieldDecorator("name", {
                   rules: [
@@ -101,6 +106,7 @@ const Contact = props => {
                   Submit
                 </Button>
               </FormItem>
+              <input type="hidden" name="form-name" value="contact" />
               {/* --- STYLES --- */}
               <style jsx>{`
                 .form {
