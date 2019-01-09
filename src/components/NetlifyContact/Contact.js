@@ -58,7 +58,7 @@ export default class ContactForm extends React.Component {
               </b>, fill out the form below and we will get back to you.
             </p>
             <br />
-            <Form
+            <form
               name="contact"
               method="post"
               action="/thanks/"
@@ -92,9 +92,9 @@ export default class ContactForm extends React.Component {
                 </label>
               </p>
               <p>
-                <Button type="submit">Send</Button>
+                <button type="submit">Send</button>
               </p>
-            </Form>
+            </form>
             {/* --- STYLES --- */}
             <style jsx>{`
               .form {
