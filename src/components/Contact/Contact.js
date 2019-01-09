@@ -73,14 +73,15 @@ const Contact = props => {
                   ]
                 })(<Input />)}
               </FormItem>
-              <FormItem label="E-mail" name="email">
+              <FormItem label="E-mail">
                 {getFieldDecorator("email", {
                   rules: [
                     {
                       required: true,
                       message: "Please input your e-mail address!",
                       whitespace: true,
-                      type: "email"
+                      type: "email",
+                      name: "email"
                     }
                   ]
                 })(<Input />)}
