@@ -47,46 +47,101 @@ export default class ContactForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Contact</h1>
-        <form
-          name="contact"
-          method="post"
-          action="/thanks/"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
-          onSubmit={this.handleSubmit}
-        >
-          {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-          <input type="hidden" name="form-name" value="contact" />
-          <p hidden>
-            <label>
-              Don’t fill this out: <input name="bot-field" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <label>
-              Your name:<br />
-              <input type="text" name="name" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <label>
-              Your email:<br />
-              <input type="email" name="email" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <label>
-              Message:<br />
-              <textarea name="message" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <button type="submit">Send</button>
-          </p>
-        </form>
-      </div>
+      <ThemeContext.Consumer>
+        {theme => (
+          <div>
+            <p>
+              If you would like to contact us about guest posts, partnerships, sponsorships,
+              advertising or simply want to say{" "}
+              <b>
+                <i>Hi</i>
+              </b>, fill out the form below and we will get back to you.
+            </p>
+            <br />
+            <Form
+              name="contact"
+              method="post"
+              action="/thanks/"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              onSubmit={this.handleSubmit}
+            >
+              {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+              <Input type="hidden" name="form-name" value="contact" />
+              <p hidden>
+                <label>
+                  Don’t fill this out: <input name="bot-field" onChange={this.handleChange} />
+                </label>
+              </p>
+              <p>
+                <label>
+                  Your name:<br />
+                  <Input type="text" name="name" onChange={this.handleChange} />
+                </label>
+              </p>
+              <p>
+                <label>
+                  Your email:<br />
+                  <Input type="email" name="email" onChange={this.handleChange} />
+                </label>
+              </p>
+              <p>
+                <label>
+                  Message:<br />
+                  <TextArea name="message" onChange={this.handleChange} />
+                </label>
+              </p>
+              <p>
+                <Button type="submit">Send</Button>
+              </p>
+            </Form>
+            {/* --- STYLES --- */}
+            <style jsx>{`
+              .form {
+                background: transparent;
+              }
+              .form :global(.ant-row.ant-form-item) {
+                margin: 0 0 1em;
+              }
+              .form :global(.ant-row.ant-form-item:last-child) {
+                margin-top: 1em;
+              }
+              .form :global(.ant-form-item-control) {
+                line-height: 1em;
+              }
+              .form :global(.ant-form-item-label) {
+                line-height: 1em;
+                margin-bottom: 0.5em;
+              }
+              .form :global(.ant-form-item) {
+                margin: 0;
+              }
+              .form :global(.ant-input) {
+                appearance: none;
+                height: auto;
+                font-size: 1.2em;
+                padding: 0.5em 0.6em;
+              }
+              .form :global(.ant-btn-primary) {
+                height: auto;
+                font-size: 1.2em;
+                padding: 0.5em 3em;
+                background: ${theme.color.brand.primary};
+                border: 1px solid ${theme.color.brand.primary};
+              }
+              .form :global(.ant-form-explain) {
+                margin-top: 0.2em;
+              }
+
+              @from-width desktop {
+                .form :global(input) {
+                  max-width: 50%;
+                }
+              }
+            `}</style>
+          </div>
+        )}
+      </ThemeContext.Consumer>
     );
   }
 }
