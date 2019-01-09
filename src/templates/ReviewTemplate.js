@@ -281,7 +281,7 @@ export default ({ data }) => {
               }
 
               .button {
-                background: #3cb146;
+                background: #5ab200;
                 color: white;
                 border-radius: 5px;
                 margin-left: 5px;

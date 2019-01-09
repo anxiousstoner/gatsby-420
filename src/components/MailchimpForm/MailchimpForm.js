@@ -161,7 +161,7 @@ export default class MailchimpForm extends React.Component {
           }
 
           .button {
-            background: #3cb146;
+            background: #70ae25;
             color: white;
             border-radius: 5%;
             margin-left: 5px;
@@ -171,7 +171,7 @@ export default class MailchimpForm extends React.Component {
             padding: 50px;
             border-width: 2px;
             border-style: solid;
-            border-color: #3cb146;
+            border-color: #71af26;
             position: relative;
             background: white !important;
             text-align: left;
@@ -186,7 +186,7 @@ export default class MailchimpForm extends React.Component {
             height: 100%;
             top: 12px;
             left: 12px;
-            background-image: url(/static/hero-background-2031261dedd37f6061d9078381a6db6c-36d59.png);
+            background-image: linear-gradient(#71af26, #87c30e);
             z-index: -1;
           }
         `}</style>

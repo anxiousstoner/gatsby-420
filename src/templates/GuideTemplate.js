@@ -287,8 +287,8 @@ export default ({ data }) => {
                 }
 
                 .feature-number {
-                  padding-top: 15% !important;
-                  padding-bottom: 15% !important;
+                  padding-top: 18% !important;
+                  padding-bottom: 18% !important;
                 }
 
                 .share {
@@ -311,7 +311,7 @@ export default ({ data }) => {
               .feature-number {
                 padding: 50px;
                 font-size: 50px;
-                background: #00b432;
+                background: #5bb300;
                 color: white;
               }
 
@@ -333,7 +333,7 @@ export default ({ data }) => {
               }
 
               .button {
-                background: #3cb146;
+                background: #5ab200;
                 color: white;
                 border-radius: 5px;
                 margin-left: 5px;
@@ -349,7 +349,7 @@ export default ({ data }) => {
 
               .button-info {
                 background: white;
-                border: 2px solid #00b432;
+                border: 2px solid #5ab200;
                 color: #626262;
               }
             `}</style>

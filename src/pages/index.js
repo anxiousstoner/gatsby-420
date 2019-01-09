@@ -133,6 +133,7 @@ class IndexPage extends React.Component {
                 ))}
               </Cardslist>
               <div className="more">
+                <br />
                 <a className="button" type="primary" href="./guides">
                   See All Our Guides
                 </a>
@@ -143,7 +144,7 @@ class IndexPage extends React.Component {
                   }
 
                   .button {
-                    background: #3cb146;
+                    background: #5ab200;
                     color: white;
                     border-radius: 5px;
                     margin-left: 5px;
@@ -187,6 +188,7 @@ class IndexPage extends React.Component {
                 ))}
               </Cardslist>
               <div className="more">
+                <br />
                 <a className="button" type="primary" href="./blog">
                   See All Our Blogs
                 </a>
@@ -201,7 +203,7 @@ class IndexPage extends React.Component {
                 }
 
                 .button {
-                  background: #3cb146;
+                  background: #5ab200;
                   color: white;
                   border-radius: 5px;
                   margin-left: 5px;
