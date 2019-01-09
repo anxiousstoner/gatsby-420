@@ -36,8 +36,6 @@ const Contact = props => {
   function sendMessage(values) {
     fetch("/", {
       method: "POST",
-      name: "contact",
-      action: "https://formspree.io/blockchainhouse@gmail.com",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": "contact", ...values })
     })
@@ -65,27 +63,34 @@ const Contact = props => {
                 {getFieldDecorator("name", {
                   rules: [
                     {
-                      whitespace: true
+                      whitespace: true,
+                      name: "name"
                     }
                   ]
                 })(<Input />)}
               </FormItem>
-              <FormItem label="E-mail" name="name">
+              <FormItem label="E-mail" name="email">
                 {getFieldDecorator("email", {
                   rules: [
                     {
                       required: true,
                       message: "Please input your e-mail address!",
                       whitespace: true,
-                      type: "email"
+                      type: "email",
+                      name: "eamil"
                     }
                   ]
                 })(<Input />)}
               </FormItem>
-              <FormItem label="Message">
+              <FormItem label="Message" name="message">
                 {getFieldDecorator("message", {
                   rules: [
-                    { required: true, message: "Please input your message!", whitespace: true }
+                    {
+                      required: true,
+                      message: "Please input your message!",
+                      whitespace: true,
+                      name: "message"
+                    }
                   ]
                 })(
                   <TextArea
