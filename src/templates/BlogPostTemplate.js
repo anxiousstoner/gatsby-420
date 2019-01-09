@@ -9,6 +9,8 @@ import Bodytext from "../components/Article/Bodytext";
 
 import Cardslist from "../components/Card/Cardslist";
 
+import MailchimpForm from "../components/MailchimpForm";
+
 import {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -124,6 +126,10 @@ export default ({ data }) => {
                 </LinkedinShareButton>
               </div>
             </div>
+            <br />
+            <MailchimpForm theme={theme} />
+            <br />
+            <br />
             <Bodytext theme={theme} html="<h1>Latest Blogs:</h1>" />
             <br />
             <Cardslist>
@@ -141,6 +147,7 @@ export default ({ data }) => {
                 </div>
               ))}
             </Cardslist>
+
             <div id="post-comments" className="comments">
               <FacebookProvider appId={facebook.appId}>
                 <FBComments

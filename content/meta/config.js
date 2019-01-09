@@ -1,5 +1,5 @@
 module.exports = {
-  siteTitle: "420Smokers.us - Your Guide To Cannabis", // <title>
+  siteTitle: "420Smokers.us - Your Best Online Stoner Guides", // <title>
   shortSiteTitle: "| 420Smokers.us", // <title> ending for posts and pages
   siteDescription:
     "Find the best online headshops, dab rigs, cbd suppliers, vaporizers, & grinders or simply scratch off your stoner bucket list with our guides and latest blogs.",

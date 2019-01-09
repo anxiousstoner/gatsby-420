@@ -13,6 +13,8 @@ import FaThumbsdown from "react-icons/lib/fa/thumbs-down";
 
 import ReactStars from "react-stars";
 
+import MailchimpForm from "../components/MailchimpForm";
+
 import {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -129,6 +131,7 @@ export default ({ data }) => {
             <br />
             <hr />
             <Bodytext theme={theme} html={post.data.body.html} />
+
             <div className="share">
               <span className="label">SHARE</span>
               <div className="links">
@@ -182,6 +185,8 @@ export default ({ data }) => {
                 </LinkedinShareButton>
               </div>
             </div>
+            <br />
+            <MailchimpForm theme={theme} />
             <style jsx>{`
               .highlight {
                 padding: 2em;

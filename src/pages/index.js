@@ -10,6 +10,7 @@ import HomeSection from "../components/Article/HomeSection";
 import Subtitle from "../components/Article/Subtitle";
 import Cardslist from "../components/Card/Cardslist";
 import Bodytext from "../components/Article/Bodytext";
+import MailchimpForm from "../components/MailchimpForm";
 
 import Button from "antd/lib/button";
 import "antd/lib/button/style/index.css";
@@ -152,6 +153,9 @@ class IndexPage extends React.Component {
         <ThemeContext.Consumer>
           {theme => (
             <HomeSection theme={theme}>
+              <MailchimpForm theme={theme} />
+              <br />
+              <br />
               <Subtitle title="Our Latest Blogs" theme={theme} />
 
               <Cardslist>

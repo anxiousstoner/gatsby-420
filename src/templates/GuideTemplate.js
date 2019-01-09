@@ -11,6 +11,8 @@ import Bodytext from "../components/Article/Bodytext";
 
 import ReactStars from "react-stars";
 
+import MailchimpForm from "../components/MailchimpForm";
+
 import {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -70,7 +72,7 @@ export default ({ data }) => {
               </div>
             </header>
             <Bodytext theme={theme} html={post.data.excerpt.html} />
-
+            <MailchimpForm theme={theme} />
             <div className="list">
               {data.allPrismicReview.edges.map(({ node }, index) => (
                 <div key={index}>

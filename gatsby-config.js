@@ -230,7 +230,33 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-sitemap`
+      resolve: `gatsby-plugin-sitemap`,
+      query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+          allSitePage {
+            edges {
+              node {
+                path
+              }
+            }
+          }
+
+      }`,
+      options: {
+        serialize: ({ site, allSitePage }) =>
+          allSitePage.edges.map(edge => {
+            return {
+              url: site.siteMetadata.siteUrl + edge.node.path,
+              lastmod: `daily`,
+              priority: 0.7
+            };
+          })
+      }
     },
     {
       resolve: "gatsby-plugin-react-svg",
