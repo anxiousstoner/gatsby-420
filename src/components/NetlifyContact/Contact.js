@@ -92,7 +92,9 @@ export default class ContactForm extends React.Component {
                 </label>
               </p>
               <p>
-                <button type="submit">Send</button>
+                <button className="button" type="submit">
+                  Send
+                </button>
               </p>
             </form>
             {/* --- STYLES --- */}
@@ -131,6 +133,19 @@ export default class ContactForm extends React.Component {
               }
               .form :global(.ant-form-explain) {
                 margin-top: 0.2em;
+              }
+
+              .button {
+                background: #3cb146;
+                color: white;
+                border-radius: 5%;
+                margin-left: 5px;
+                letter-spacing: 1px;
+                font-weight: 700;
+                position: relative;
+                border: 0.1px solid #d9d9d9;
+                padding: 20px;
+                font-size: larger;
               }
 
               @from-width desktop {
