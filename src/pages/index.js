@@ -133,9 +133,9 @@ class IndexPage extends React.Component {
                 ))}
               </Cardslist>
               <div className="more">
-                <button className="button" type="primary" href="./guides">
+                <a className="button" type="primary" href="./guides">
                   See All Our Guides
-                </button>
+                </a>
                 <style jsx>{`
                   .more {
                     text-align: center;
@@ -187,9 +187,9 @@ class IndexPage extends React.Component {
                 ))}
               </Cardslist>
               <div className="more">
-                <button className="button" type="primary" href="./blog">
+                <a className="button" type="primary" href="./blog">
                   See All Our Blogs
-                </button>
+                </a>
               </div>
               <div className="Body2">
                 <Bodytext theme={theme} html={prismicHomepage.data.body2.html} />
