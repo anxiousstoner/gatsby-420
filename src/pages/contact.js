@@ -3,7 +3,7 @@ import React from "react";
 
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
-import Contact from "../components/Contact";
+import Contact from "../components/NetlifyContact";
 import Headline from "../components/Article/Headline";
 import Seo from "../components/Seo";
 
