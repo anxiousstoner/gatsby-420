@@ -63,8 +63,7 @@ const Contact = props => {
                 {getFieldDecorator("name", {
                   rules: [
                     {
-                      whitespace: true,
-                      name: "name"
+                      whitespace: true
                     }
                   ]
                 })(<Input />)}
@@ -76,8 +75,7 @@ const Contact = props => {
                       required: true,
                       message: "Please input your e-mail address!",
                       whitespace: true,
-                      type: "email",
-                      name: "eamil"
+                      type: "email"
                     }
                   ]
                 })(<Input />)}
@@ -88,8 +86,7 @@ const Contact = props => {
                     {
                       required: true,
                       message: "Please input your message!",
-                      whitespace: true,
-                      name: "message"
+                      whitespace: true
                     }
                   ]
                 })(

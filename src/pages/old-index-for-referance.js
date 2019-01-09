@@ -46,6 +46,16 @@ class IndexPage extends React.Component {
           )}
         </ThemeContext.Consumer>
 
+        <div className="signUpForm">
+          <h2>Join the 420 Family!</h2>
+          <p>Get the Latest Content, Guides & Deals.</p>
+          <p>In Your Mailbox Weekly.</p>
+          <form name="contact" method="POST" data-netlify="true">
+            <input type="email" placeholder="Email Address" name="email" />
+            <input className="button" type="submit" />
+          </form>
+        </div>
+
         <hr ref={this.separator} />
 
         <ThemeContext.Consumer>
