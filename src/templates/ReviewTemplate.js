@@ -104,9 +104,9 @@ export default ({ data }) => {
                     </span>
                     <p itemProp="availability">In Stock</p>
                   </h6>
-                  <Button type="primary" href={post.data.url.url} target="_blank">
+                  <a className="button" type="primary" href={post.data.url.url} target="_blank">
                     {post.data.button_text.text}
-                  </Button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -278,6 +278,21 @@ export default ({ data }) => {
               .thumbs {
                 margin-bottom: 15px;
                 font-size: 24px;
+              }
+
+              .button {
+                background: #3cb146;
+                color: white;
+                border-radius: 5px;
+                margin-left: 5px;
+                letter-spacing: 1px;
+                font-weight: 700;
+                position: relative;
+                border: 0.1px solid #d9d9d9;
+                padding: 20px;
+                font-size: medium;
+                min-width: 150px;
+                line-height: 1rem;
               }
 
               @from-width desktop {

@@ -96,12 +96,19 @@ export default ({ data }) => {
                     </div>
                     <div className="buttons-middle-block">
                       <div className="button-middle">
-                        <Button href={"/" + node.uid}>More Info</Button>
+                        <a className="button button-info" href={"/" + node.uid}>
+                          More Info
+                        </a>
                       </div>
                       <div className="button-middle">
-                        <Button type="primary" href={node.data.url.url} target="_blank">
+                        <a
+                          className="button"
+                          type="primary"
+                          href={node.data.url.url}
+                          target="_blank"
+                        >
                           Buy Now
-                        </Button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -203,6 +210,7 @@ export default ({ data }) => {
                 align-items: center;
                 display: flex;
                 flex-wrap: wrap;
+                margin: 15px 0;
 
                 :global(img) {
                   max-height: 150px;
@@ -279,8 +287,8 @@ export default ({ data }) => {
                 }
 
                 .feature-number {
-                  padding-top: 75px !important;
-                  padding-bottom: 75px !important;
+                  padding-top: 15% !important;
+                  padding-bottom: 15% !important;
                 }
 
                 .share {
@@ -294,12 +302,16 @@ export default ({ data }) => {
                   flex-direction: column;
                   margin-top: 20px;
                 }
+
+                .buttons-middle-block {
+                  justify-content: flex-end;
+                }
               }
 
               .feature-number {
                 padding: 50px;
                 font-size: 50px;
-                background: #048208;
+                background: #00b432;
                 color: white;
               }
 
@@ -313,10 +325,32 @@ export default ({ data }) => {
 
               .buttons-middle-block {
                 padding: 10px;
+                min-width: 156px;
               }
 
               .button-middle {
                 margin-top: 15px;
+              }
+
+              .button {
+                background: #3cb146;
+                color: white;
+                border-radius: 5px;
+                margin-left: 5px;
+                letter-spacing: 1px;
+                font-weight: 700;
+                position: relative;
+                border: 0.1px solid #d9d9d9;
+                padding: 20px;
+                font-size: medium;
+                min-width: 150px;
+                line-height: 4rem;
+              }
+
+              .button-info {
+                background: white;
+                border: 2px solid #00b432;
+                color: #626262;
               }
             `}</style>
           </Article>

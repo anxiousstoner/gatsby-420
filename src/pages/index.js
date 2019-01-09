@@ -133,13 +133,26 @@ class IndexPage extends React.Component {
                 ))}
               </Cardslist>
               <div className="more">
-                <Button type="primary" href="./guides">
-                  See all our guides
-                </Button>
+                <button className="button" type="primary" href="./guides">
+                  See All Our Guides
+                </button>
                 <style jsx>{`
                   .more {
                     text-align: center;
                     margin: 16px;
+                  }
+
+                  .button {
+                    background: #3cb146;
+                    color: white;
+                    border-radius: 5px;
+                    margin-left: 5px;
+                    letter-spacing: 1px;
+                    font-weight: 700;
+                    position: relative;
+                    border: 0.1px solid #d9d9d9;
+                    padding: 20px;
+                    font-size: larger;
                   }
                 `}</style>
               </div>
@@ -174,9 +187,9 @@ class IndexPage extends React.Component {
                 ))}
               </Cardslist>
               <div className="more">
-                <Button type="primary" href="./blog">
-                  See all our blogs
-                </Button>
+                <button className="button" type="primary" href="./blog">
+                  See All Our Blogs
+                </button>
               </div>
               <div className="Body2">
                 <Bodytext theme={theme} html={prismicHomepage.data.body2.html} />
@@ -185,6 +198,19 @@ class IndexPage extends React.Component {
                 hr {
                   margin: 0;
                   border: 0;
+                }
+
+                .button {
+                  background: #3cb146;
+                  color: white;
+                  border-radius: 5px;
+                  margin-left: 5px;
+                  letter-spacing: 1px;
+                  font-weight: 700;
+                  position: relative;
+                  border: 0.1px solid #d9d9d9;
+                  padding: 20px;
+                  font-size: larger;
                 }
 
                 .card {
