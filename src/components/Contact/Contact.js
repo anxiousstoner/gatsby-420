@@ -36,6 +36,7 @@ const Contact = props => {
   function sendMessage(values) {
     fetch("/", {
       method: "POST",
+      name: "contact",
       action: "https://formspree.io/blockchainhouse@gmail.com",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": "contact", ...values })
@@ -60,7 +61,7 @@ const Contact = props => {
         <ThemeContext.Consumer>
           {theme => (
             <Form onSubmit={handleSubmit} data-netlify="true" data-netlify-honeypot="bot-field">
-              <FormItem label="Name">
+              <FormItem label="Name" name="name">
                 {getFieldDecorator("name", {
                   rules: [
                     {
@@ -69,7 +70,7 @@ const Contact = props => {
                   ]
                 })(<Input />)}
               </FormItem>
-              <FormItem label="E-mail">
+              <FormItem label="E-mail" name="name">
                 {getFieldDecorator("email", {
                   rules: [
                     {
