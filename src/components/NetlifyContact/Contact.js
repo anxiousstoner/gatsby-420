@@ -65,6 +65,7 @@ class ContactForm extends React.Component {
         <p>
           <button type="submit">Send</button>
         </p>
+        <input type="hidden" name="form-name" value="contact" />
       </form>
     );
   }
