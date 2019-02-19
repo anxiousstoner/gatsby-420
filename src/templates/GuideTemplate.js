@@ -334,8 +334,12 @@ export default ({ data }) => {
                   display: flex;
 
                   img {
-                    max-height: 220px;
+                    height: 200px;
                     max-width: 100%;
+                  }
+
+                  .image-middle-card {
+                    text-align: center;
                   }
 
                   .buttons-middle-block {
