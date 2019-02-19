@@ -71,6 +71,45 @@ export default ({ data }) => {
                 <img src={post.data.icon.url} alt={post.data.title.text} />
               </div>
             </header>
+            <div className=" row  top-list">
+              {data.allPrismicReview.edges.slice(0, 3).map(({ node }, index) => (
+                <div className="col-md-3" key={index}>
+                  <div className="">
+                    <div className="image-middle-card">
+                      <img src={node.data.image.url} alt={node.data.title.text} />
+                    </div>
+                    <div className="details-middle">
+                      <h3 className="featured-title-middle">{node.data.title.text}</h3>
+                      <p className="rating-middle">
+                        <ReactStars
+                          count={5}
+                          edit={false}
+                          value={node.data.rating}
+                          size={26}
+                          color2={"#ffd700"}
+                        />
+                      </p>
+
+                      <div className="price" itemProp="price" content={node.data.price}>
+                        $ {node.data.price}
+                      </div>
+                    </div>
+                    <div className="buttons-middle-block">
+                      <div className="button-middle">
+                        <a
+                          className="button"
+                          type="primary"
+                          href={node.data.url.url}
+                          target="_blank"
+                        >
+                          Buy Now
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
             <Bodytext theme={theme} html={post.data.excerpt.html} />
             <MailchimpForm theme={theme} />
             <div className="list">
@@ -111,7 +150,7 @@ export default ({ data }) => {
                           href={node.data.url.url}
                           target="_blank"
                         >
-                          Buy Now
+                          Best Offer
                         </a>
                       </div>
                     </div>
@@ -201,6 +240,19 @@ export default ({ data }) => {
                 align-items: center;
               }
 
+              .row {
+                display: flex;
+                flex-wrap: wrap;
+              }
+
+              .col-md-3 {
+                max-width: 33%;
+              }
+
+              .top-list {
+                display: none;
+              }
+
               .list {
                 margin-top: 20px;
                 margin-bottom: 20px;
@@ -276,6 +328,32 @@ export default ({ data }) => {
                 }
                 .label {
                   margin: ${theme.space.inline.m};
+                }
+
+                .top-list {
+                  display: flex;
+
+                  img {
+                    max-height: 220px;
+                    max-width: 100%;
+                  }
+
+                  .buttons-middle-block {
+                    justify-content: center;
+                    margin-top: -25px;
+                  }
+
+                  .details-middle {
+                    text-align: center;
+                  }
+
+                  .rating-middle {
+                    margin-left: 4vw;
+                  }
+
+                  .featured-title-middle {
+                    min-height: 60px;
+                  }
                 }
               }
 
