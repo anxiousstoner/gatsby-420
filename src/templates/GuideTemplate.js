@@ -90,8 +90,12 @@ export default ({ data }) => {
                           value={node.data.rating}
                           size={22}
                           color2={"#ffd700"}
-                        />,
+                        />
                       </p>
+
+                      <div className="price" itemProp="price" content={node.data.price}>
+                        $ {node.data.price}
+                      </div>
                       <p className="rating-summary">{node.data.excerpt.text}</p>
                     </div>
                     <div className="buttons-middle-block">
@@ -258,6 +262,13 @@ export default ({ data }) => {
                 margin: 0 1em 1em;
               }
 
+              .price {
+                margin-top: 0.2em;
+                color: #5ab200;
+                font-weight: 900;
+                font-size: 2em;
+              }
+
               @from-width tablet {
                 .share {
                   flex-direction: row;
@@ -418,6 +429,7 @@ export const query = graphql`
               html
               text
             }
+            price
             rating
             url {
               url
