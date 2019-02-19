@@ -43,6 +43,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             node {
               id
               uid
+              tags
             }
           }
         }
@@ -80,7 +81,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           component: path.resolve(`./src/templates/ReviewTemplate.js`),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
-            slug: node.uid
+            slug: node.uid,
+            tags: node.tags
           }
         });
       });

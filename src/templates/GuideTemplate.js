@@ -246,7 +246,7 @@ export default ({ data }) => {
               }
 
               .col-md-3 {
-                max-width: 33%;
+                width: 33%;
               }
 
               .top-list {
@@ -352,11 +352,12 @@ export default ({ data }) => {
                   }
 
                   .rating-middle {
-                    margin-left: 4vw;
+                    max-width: 130px;
+                    margin: auto;
                   }
 
                   .featured-title-middle {
-                    min-height: 60px;
+                    min-height: 40px;
                   }
                 }
               }
