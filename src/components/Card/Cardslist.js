@@ -17,8 +17,8 @@ const Cardslist = props => {
         @from-width desktop {
           .cardslist {
             display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
+            flex-direction: column;
+            text-align: left;
           }
         }
       `}</style>
