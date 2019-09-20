@@ -49,7 +49,7 @@ const BlogPage = ({ data }) => {
                 .card {
                   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                   transition: 0.3s;
-                  border-radius: 20px;
+                  border-radius: 5px;
 
                   :global(img) {
                     min-width: 100%;
@@ -76,6 +76,7 @@ const BlogPage = ({ data }) => {
                     display: flex;
                     align-items: center;
                     width: 100%;
+                    border-radius: 20px;
 
                     img {
                       width: 300px;
