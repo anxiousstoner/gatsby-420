@@ -1,6 +1,7 @@
 import React from "react";
 
 import Link from "gatsby-link";
+import kebabCase from "lodash/kebabCase";
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
@@ -33,14 +34,18 @@ const BlogPage = ({ data }) => {
                           <h2 className="heading">{node.data.title.text}</h2>
                           <div className="metaInfo">
                             {node.last_publication_date}
-                            {node.data.author &&
-                              " | " + node.data.author.document[0].data.name}{categories && " | "}
+                            {node.data.author && " | " + node.data.author.document[0].data.name}
+                            {categories && " | "}
                             {categories &&
                               categories.map((cat, i) => (
                                 <React.Fragment key={cat}>
                                   {!!i && ", "}
-                                  {/* <Link to={`/categories/${kebabCase(cat)}`}>{cat}</Link> */}
-                                  {cat}
+                                  <Link
+                                    to={`/categories/${kebabCase(cat)}`}
+                                    style={{ color: theme.color.neutral.blue }}
+                                  >
+                                    {cat}
+                                  </Link>
                                 </React.Fragment>
                               ))}
                           </div>
