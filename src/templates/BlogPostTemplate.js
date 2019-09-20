@@ -8,6 +8,7 @@ import Headline from "../components/Article/Headline";
 import Bodytext from "../components/Article/Bodytext";
 
 import Cardslist from "../components/Card/Cardslist";
+import Categories from "../components/Blog/Categories";
 
 import MailchimpForm from "../components/MailchimpForm";
 
@@ -30,14 +31,19 @@ import FacebookProvider, { Comments as FBComments } from "react-facebook";
 import config from "../../content/meta/config";
 
 export default ({ data }) => {
-  const post = data.prismicBlogPost;
+  const post = data.prismicBlogpost;
   const facebook = data.site.siteMetadata.facebook;
   const url = config.siteUrl + config.pathPrefix + "/" + post.uid;
 
   const iconSize = 36;
   const filter = count => (count > 0 ? count : "");
 
-  const postList = data.allPrismicBlogPost;
+  const postList = data.allPrismicBlogpost;
+
+  let categories = false;
+  if (post.data.categories.length > 0 && post.data.categories[0].category) {
+    categories = post.data.categories.map(c => c.category.document[0].data.name);
+  }
 
   return (
     <React.Fragment>
@@ -69,6 +75,12 @@ export default ({ data }) => {
           <Article theme={theme}>
             <header>
               <Headline title={post.data.title.text} theme={theme} />
+              <div className="metaInfo">
+                {post.last_publication_date}
+                {post.data.author && " | " + post.data.author.document[0].data.name}
+                {categories && " | "}
+                {categories && <Categories categories={categories} theme={theme} />}
+              </div>
               <img src={post.data.image.url} />
             </header>
             <Bodytext theme={theme} html={post.data.body.html} />
@@ -187,6 +199,11 @@ export default ({ data }) => {
                 margin: 0 1em 1em;
               }
 
+              .metaInfo {
+                margin-top: -${theme.space.inset.m};
+                margin-bottom: ${theme.space.inset.m};
+              }
+
               @from-width tablet {
                 .share {
                   flex-direction: row;
@@ -251,9 +268,10 @@ export default ({ data }) => {
 
 export const query = graphql`
   query BlogPostbyUIDQuery($slug: String!) {
-    prismicBlogPost(uid: { eq: $slug }) {
+    prismicBlogpost(uid: { eq: $slug }) {
       id
       uid
+      last_publication_date(formatString: "MM/DD/YYYY")
       data {
         title {
           html
@@ -269,9 +287,25 @@ export const query = graphql`
           html
           text
         }
+        author {
+          document {
+            data {
+              name
+            }
+          }
+        }
+        categories {
+          category {
+            document {
+              data {
+                name
+              }
+            }
+          }
+        }
       }
     }
-    allPrismicBlogPost(limit: 3, sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogpost(limit: 3, sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           uid
