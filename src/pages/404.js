@@ -5,6 +5,7 @@ import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import Cardslist from "../components/Card/Cardslist";
+import Categories from "../components/Blog/Categories";
 
 import Seo from "../components/Seo";
 
@@ -34,7 +35,7 @@ export default ({ data }) => {
               <Headline title="" theme={theme} />
             </header>
 
-            <Cardslist>
+            <Cardslist horizontal>
               {data.allPrismicGuide.edges.map(({ node }, index) => (
                 <div key={index}>
                   <Link to={"/" + node.uid}>
@@ -95,18 +96,31 @@ export default ({ data }) => {
             <br />
             <br />
             <Cardslist>
-              {data.allPrismicBlogPost.edges.map(({ node }, index) => (
-                <div key={index}>
-                  <Link to={"/" + node.uid}>
-                    <div className="card">
-                      <img src={node.data.image.url} alt={node.data.title.text} />
-                      <div className="text">
-                        <h2 className="heading">{node.data.title.text}</h2>
+              {data.allPrismicBlogpost.edges.map(({ node }, index) => {
+                let categories = false;
+                if (node.data.categories.length > 0 && node.data.categories[0].category) {
+                  categories = node.data.categories.map(c => c.category.document[0].data.name);
+                }
+                return (
+                  <div key={index}>
+                    <Link to={"/" + node.uid}>
+                      <div className="card">
+                        <img src={node.data.image.url} alt={node.data.title.text} />
+                        <div className="text">
+                          <h2 className="heading">{node.data.title.text}</h2>
+                          <div className="metaInfo">
+                            {node.last_publication_date}
+                            {node.data.author && " | " + node.data.author.document[0].data.name}
+                            {categories && " | "}
+                            {categories && <Categories categories={categories} theme={theme} />}
+                          </div>
+                          <p className="meta">{node.data.excerpt.text}</p>{" "}
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+                    </Link>
+                  </div>
+                );
+              })}
               <style jsx>{`
                 .card {
                   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -128,8 +142,30 @@ export default ({ data }) => {
                 @from-width desktop {
                   .card {
                     background: white;
-                    margin: 5px;
-                    width: 223px;
+                    margin: 10px;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    border-radius: 20px;
+
+                    img {
+                      width: 300px;
+                      min-width: 300px;
+                      height: 225px;
+                      min-height: 225px;
+                      border-radius: 20px;
+                      border-top-right-radius: 0;
+                      border-bottom-right-radius: 0;
+                      object-fit: cover;
+                    }
+
+                    .text {
+                      padding: 0 0.7em;
+
+                      h2 {
+                        margin-top: 0;
+                      }
+                    }
 
                     :global(img) {
                       min-width: 100%;
@@ -187,11 +223,11 @@ export const query = graphql`
         }
       }
     }
-    allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogpost(sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           uid
-          last_publication_date
+          last_publication_date(formatString: "MM/DD/YYYY")
           data {
             title {
               html
@@ -204,6 +240,22 @@ export const query = graphql`
             excerpt {
               html
               text
+            }
+            author {
+              document {
+                data {
+                  name
+                }
+              }
+            }
+            categories {
+              category {
+                document {
+                  data {
+                    name
+                  }
+                }
+              }
             }
           }
         }
