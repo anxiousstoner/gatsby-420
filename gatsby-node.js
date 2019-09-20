@@ -43,15 +43,25 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             node {
               id
               uid
-              tags
             }
           }
         }
-        allPrismicBlogPost {
+        allPrismicBlogpost {
           edges {
             node {
               id
               uid
+              data {
+                categories {
+                  category {
+                    document {
+                      data {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
