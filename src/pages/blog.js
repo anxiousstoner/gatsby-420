@@ -31,8 +31,10 @@ const BlogPage = ({ data }) => {
                         <img src={node.data.image.url} alt={node.data.title.text} />
                         <div className="text">
                           <h2 className="heading">{node.data.title.text}</h2>
-                          <div>
-                            {node.last_publication_date} Author{" "}
+                          <div className="metaInfo">
+                            {node.last_publication_date}
+                            {node.data.author &&
+                              " | " + node.data.author.document[0].data.name}{categories && " | "}
                             {categories &&
                               categories.map((cat, i) => (
                                 <React.Fragment key={cat}>
@@ -65,6 +67,12 @@ const BlogPage = ({ data }) => {
 
                 .text {
                   padding: 0.7em;
+                }
+
+                .metaInfo {
+                  opacity: 0.7;
+                  font-size: 0.9rem;
+                  margin-top: 10px;
                 }
 
                 @from-width desktop {
@@ -141,6 +149,13 @@ export const query = graphql`
             excerpt {
               html
               text
+            }
+            author {
+              document {
+                data {
+                  name
+                }
+              }
             }
             categories {
               category {
