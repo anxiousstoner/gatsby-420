@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Helmet from "react-helmet";
+import kebabCase from "lodash/kebabCase";
 
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
@@ -44,6 +45,21 @@ export default ({ data }) => {
   if (post.data.categories.length > 0 && post.data.categories[0].category) {
     categories = post.data.categories.map(c => c.category.document[0].data.name);
   }
+
+  // Filter posts here since Gatsby 1.9 GraphQL issue
+  // https://github.com/gatsbyjs/gatsby/issues/4799
+  // https://github.com/gatsbyjs/gatsby/pull/6315
+  // https://github.com/gatsbyjs/gatsby/pull/8294
+  const morePosts = postList.edges
+    .filter(edge => edge.node.id !== data.prismicBlogpost.id)
+    .filter(
+      edge =>
+        categories
+          ? edge.node.data.categories.length > 0 &&
+            edge.node.data.categories.some(c => c.category.document[0].data.name === categories[0])
+          : true
+    )
+    .slice(0, 3);
 
   return (
     <React.Fragment>
@@ -142,22 +158,46 @@ export default ({ data }) => {
             <MailchimpForm theme={theme} />
             <br />
             <br />
-            <Bodytext theme={theme} html="<h1>Latest Blogs:</h1>" />
+            <h1>
+              Latest Blogs{categories && ` from `}
+              {categories && (
+                <Link
+                  to={`/categories/${kebabCase(categories[0])}`}
+                  style={{ color: theme.color.neutral.blue }}
+                >
+                  {categories[0]}
+                </Link>
+              )}:
+            </h1>
             <br />
             <Cardslist>
-              {postList.edges.map(({ node }, index) => (
-                <div key={index}>
-                  <Link to={"/" + node.uid}>
-                    <div className="card">
-                      <img src={node.data.image.url} alt={node.data.title.text} />
-                      <div className="text">
-                        <h2 className="heading">{node.data.title.text}</h2>
-                        <p className="meta">{node.data.excerpt.text}</p>
+              {morePosts.map(({ node }, index) => {
+                let pCategories = false;
+                if (node.data.categories.length > 0 && node.data.categories[0].category) {
+                  pCategories = node.data.categories.map(c => c.category.document[0].data.name);
+                }
+
+                return (
+                  <div key={index}>
+                    <Link to={"/" + node.uid}>
+                      <div className="card">
+                        <img src={node.data.image.url} alt={node.data.title.text} />
+                        <div className="text">
+                          <h2 className="heading">{node.data.title.text}</h2>
+                          <div className="metaInfo">
+                            {node.last_publication_date}
+                            {node.data.author && " | " + node.data.author.document[0].data.name}
+                            {pCategories && " | "}
+                            {pCategories && <Categories categories={pCategories} theme={theme} />}
+                          </div>
+
+                          <p className="meta">{node.data.excerpt.text}</p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+                    </Link>
+                  </div>
+                );
+              })}
             </Cardslist>
 
             <div id="post-comments" className="comments">
@@ -234,8 +274,35 @@ export default ({ data }) => {
               @from-width desktop {
                 .card {
                   background: white;
-                  margin: 5px;
-                  width: 223px;
+                  margin: 10px;
+                  display: flex;
+                  align-items: center;
+                  border-radius: 20px;
+                  width: 100%;
+
+                  img {
+                    width: 300px;
+                    min-width: 300px;
+                    height: 225px;
+                    min-height: 225px;
+                    border-radius: 20px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                    object-fit: cover;
+                  }
+                  .text {
+                    padding: 0 0.7em;
+
+                    h2 {
+                      margin-top: 0;
+                    }
+                  }
+                  .metaInfo {
+                    opacity: 0.7;
+                    font-size: 0.9rem;
+                    margin-top: 10px;
+                    margin-bottom: 0;
+                  }
                 }
 
                 .share {
@@ -305,10 +372,12 @@ export const query = graphql`
         }
       }
     }
-    allPrismicBlogpost(limit: 3, sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogpost(sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
+          id
           uid
+          last_publication_date(formatString: "MM/DD/YYYY")
           data {
             title {
               html
@@ -320,6 +389,22 @@ export const query = graphql`
             excerpt {
               html
               text
+            }
+            author {
+              document {
+                data {
+                  name
+                }
+              }
+            }
+            categories {
+              category {
+                document {
+                  data {
+                    name
+                  }
+                }
+              }
             }
           }
         }
