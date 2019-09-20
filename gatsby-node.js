@@ -75,6 +75,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         }
       }
     `).then(result => {
+      const categoriesSet = new Set();
       result.data.allPrismicGuide.edges.forEach(({ node }) => {
         createPage({
           path: node.uid,
@@ -96,7 +97,12 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           }
         });
       });
-      result.data.allPrismicBlogPost.edges.forEach(({ node }) => {
+      result.data.allPrismicBlogpost.edges.forEach(({ node }) => {
+        if (node.data.categories.length > 0 && node.data.categories[0].category) {
+          node.data.categories.forEach(cat => {
+            categoriesSet.add(cat.category.document[0].data.name);
+          });
+        }
         createPage({
           path: node.uid,
           component: path.resolve(`./src/templates/BlogPostTemplate.js`),
@@ -106,6 +112,19 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           }
         });
       });
+
+      // Create Category pages
+      const categoriesList = Array.from(categoriesSet);
+      categoriesList.forEach(category => {
+        createPage({
+          path: `/categories/${_.kebabCase(category)}`,
+          component: path.resolve(`./src/templates/Category.js`),
+          context: {
+            category
+          }
+        });
+      });
+
       result.data.allPrismicRecipe.edges.forEach(({ node }) => {
         createPage({
           path: node.uid,
