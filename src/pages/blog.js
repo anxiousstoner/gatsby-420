@@ -1,7 +1,6 @@
 import React from "react";
 
 import Link from "gatsby-link";
-import kebabCase from "lodash/kebabCase";
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
