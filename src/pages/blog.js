@@ -6,6 +6,7 @@ import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import Cardslist from "../components/Card/Cardslist";
+import Categories from "../components/Blog/Categories";
 
 import Seo from "../components/Seo";
 
@@ -36,18 +37,7 @@ const BlogPage = ({ data }) => {
                             {node.last_publication_date}
                             {node.data.author && " | " + node.data.author.document[0].data.name}
                             {categories && " | "}
-                            {categories &&
-                              categories.map((cat, i) => (
-                                <React.Fragment key={cat}>
-                                  {!!i && ", "}
-                                  <Link
-                                    to={`/categories/${kebabCase(cat)}`}
-                                    style={{ color: theme.color.neutral.blue }}
-                                  >
-                                    {cat}
-                                  </Link>
-                                </React.Fragment>
-                              ))}
+                            {categories && <Categories categories={categories} theme={theme} />}
                           </div>
                           <p className="meta">{node.data.excerpt.text}</p>
                         </div>
