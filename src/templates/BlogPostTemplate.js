@@ -259,6 +259,11 @@ export default ({ data }) => {
                 transition: 0.3s;
                 border-radius: 5px;
 
+                .metaInfo {
+                  margin-top: 10px;
+                  margin-bottom: 0;
+                }
+
                 :global(img) {
                   min-width: 100%;
                   max-width: 100%;
