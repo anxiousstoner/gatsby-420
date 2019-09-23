@@ -26,7 +26,7 @@ class IndexPage extends React.Component {
   render() {
     const {
       data: {
-        allPrismicBlogpost,
+        allPrismicBlogPost,
         allPrismicGuide,
         prismicHomepage,
         bgDesktop: {
@@ -174,7 +174,7 @@ class IndexPage extends React.Component {
               <Subtitle title="Our Latest Blogs" theme={theme} />
 
               <Cardslist>
-                {allPrismicBlogpost.edges.map(({ node }, index) => {
+                {allPrismicBlogPost.edges.map(({ node }, index) => {
                   let categories = false;
                   if (node.data.categories.length > 0 && node.data.categories[0].category) {
                     categories = node.data.categories.map(c => c.category.document[0].data.name);
@@ -331,7 +331,7 @@ export default IndexPage;
 //eslint-disable-next-line no-undef
 export const guery = graphql`
   query IndexQuery {
-    allPrismicBlogpost(limit: 8, sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogPost(limit: 8, sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           uid

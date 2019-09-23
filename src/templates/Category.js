@@ -152,7 +152,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    posts: allPrismicBlogpost(sort: { fields: [last_publication_date], order: DESC }) {
+    posts: allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
       totalCount
       edges {
         node {

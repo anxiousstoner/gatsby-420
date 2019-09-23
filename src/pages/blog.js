@@ -20,7 +20,7 @@ const BlogPage = ({ data }) => {
               <Headline title="Latest From Our Blog" theme={theme} />
             </header>
             <Cardslist>
-              {data.allPrismicBlogpost.edges.map(({ node }, index) => {
+              {data.allPrismicBlogPost.edges.map(({ node }, index) => {
                 let categories = false;
                 if (node.data.categories.length > 0 && node.data.categories[0].category) {
                   categories = node.data.categories.map(c => c.category.document[0].data.name);
@@ -128,7 +128,7 @@ export const query = graphql`
         }
       }
     }
-    allPrismicBlogpost(sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           uid

@@ -32,14 +32,14 @@ import FacebookProvider, { Comments as FBComments } from "react-facebook";
 import config from "../../content/meta/config";
 
 export default ({ data }) => {
-  const post = data.prismicBlogpost;
+  const post = data.prismicBlogPost;
   const facebook = data.site.siteMetadata.facebook;
   const url = config.siteUrl + config.pathPrefix + "/" + post.uid;
 
   const iconSize = 36;
   const filter = count => (count > 0 ? count : "");
 
-  const postList = data.allPrismicBlogpost;
+  const postList = data.allPrismicBlogPost;
 
   let categories = false;
   if (post.data.categories.length > 0 && post.data.categories[0].category) {
@@ -51,7 +51,7 @@ export default ({ data }) => {
   // https://github.com/gatsbyjs/gatsby/pull/6315
   // https://github.com/gatsbyjs/gatsby/pull/8294
   const morePosts = postList.edges
-    .filter(edge => edge.node.id !== data.prismicBlogpost.id)
+    .filter(edge => edge.node.id !== data.prismicBlogPost.id)
     .filter(
       edge =>
         categories
@@ -340,7 +340,7 @@ export default ({ data }) => {
 
 export const query = graphql`
   query BlogPostbyUIDQuery($slug: String!) {
-    prismicBlogpost(uid: { eq: $slug }) {
+    prismicBlogPost(uid: { eq: $slug }) {
       id
       uid
       last_publication_date(formatString: "MM/DD/YYYY")
@@ -377,7 +377,7 @@ export const query = graphql`
         }
       }
     }
-    allPrismicBlogpost(sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
           id

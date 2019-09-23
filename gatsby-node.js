@@ -46,7 +46,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             }
           }
         }
-        allPrismicBlogpost {
+        allPrismicBlogPost {
           edges {
             node {
               id
@@ -97,7 +97,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           }
         });
       });
-      result.data.allPrismicBlogpost.edges.forEach(({ node }) => {
+      result.data.allPrismicBlogPost.edges.forEach(({ node }) => {
         if (node.data.categories.length > 0 && node.data.categories[0].category) {
           node.data.categories.forEach(cat => {
             categoriesSet.add(cat.category.document[0].data.name);
