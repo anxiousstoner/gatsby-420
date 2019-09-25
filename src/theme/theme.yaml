@@ -53,7 +53,6 @@ color:
       j: &color-gray-10 '#3e3e3c'
       k: '#2b2826'
     black: '#000000'
-    blue: '#425AD1'
     green: '#81BD17'
   brand:
     primary: &color-brand-primary '#3cb146'
