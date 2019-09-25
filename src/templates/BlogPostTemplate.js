@@ -162,7 +162,7 @@ export default ({ data }) => {
               Latest Blogs{categories && ` from `}
               {categories && (
                 <Link
-                  to={`/categories/${kebabCase(categories[0])}`}
+                  to={`/category/${kebabCase(categories[0])}`}
                   style={{ color: theme.color.neutral.blue }}
                 >
                   {categories[0]}

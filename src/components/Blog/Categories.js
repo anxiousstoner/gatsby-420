@@ -8,7 +8,7 @@ const Categories = ({ categories, theme }) => (
     {categories.map((cat, i) => (
       <React.Fragment key={cat}>
         {!!i && ", "}
-        <Link to={`/categories/${kebabCase(cat)}`} style={{ color: theme.color.neutral.blue }}>
+        <Link to={`/category/${kebabCase(cat)}`} style={{ color: theme.color.neutral.blue }}>
           {cat}
         </Link>
       </React.Fragment>
