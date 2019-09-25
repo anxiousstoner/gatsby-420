@@ -54,7 +54,7 @@ color:
       k: '#2b2826'
     black: '#000000'
     blue: '#425AD1'
-    green: '#85C17F'
+    green: '#85C112'
   brand:
     primary: &color-brand-primary '#3cb146'
     primaryActive: '#3cb146'
