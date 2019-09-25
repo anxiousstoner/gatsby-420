@@ -163,7 +163,7 @@ export default ({ data }) => {
               {categories && (
                 <Link
                   to={`/category/${kebabCase(categories[0])}`}
-                  style={{ color: theme.color.neutral.blue }}
+                  style={{ color: theme.color.neutral.green }}
                 >
                   {categories[0]}
                 </Link>
