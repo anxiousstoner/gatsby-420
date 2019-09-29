@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Link from "gatsby-link";
 import { ThemeContext } from "../layouts";
@@ -9,7 +10,17 @@ import Categories from "../components/Blog/Categories";
 
 import Seo from "../components/Seo";
 
-const BlogPage = ({ data }) => {
+const CategoryPage = ({ data, pathContext: { category } }) => {
+  // Filter posts here since Gatsby 1.9 GraphQL issue
+  // https://github.com/gatsbyjs/gatsby/issues/4799
+  // https://github.com/gatsbyjs/gatsby/pull/6315
+  // https://github.com/gatsbyjs/gatsby/pull/8294
+  const posts = data.posts.edges.filter(
+    edge =>
+      edge.node.data.categories.length > 0 &&
+      edge.node.data.categories.some(c => c.category.document[0].data.name === category)
+  );
+
   return (
     <React.Fragment>
       <ThemeContext.Consumer>
@@ -17,10 +28,10 @@ const BlogPage = ({ data }) => {
           <Article theme={theme}>
             <header>
               <h1 />
-              <Headline title="Latest From Our Blog" theme={theme} />
+              <Headline title={`Posts in ${category} (${posts.length})`} theme={theme} />
             </header>
             <Cardslist>
-              {data.allPrismicBlogPost.edges.map(({ node }, index) => {
+              {posts.map(({ node }, index) => {
                 let categories = false;
                 if (node.data.categories.length > 0 && node.data.categories[0].category) {
                   categories = node.data.categories.map(c => c.category.document[0].data.name);
@@ -49,7 +60,7 @@ const BlogPage = ({ data }) => {
                 .card {
                   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                   transition: 0.3s;
-                  border-radius: 5px;
+                  border-radius: 20px;
 
                   :global(img) {
                     min-width: 100%;
@@ -76,7 +87,6 @@ const BlogPage = ({ data }) => {
                     display: flex;
                     align-items: center;
                     width: 100%;
-                    border-radius: 20px;
 
                     img {
                       width: 300px;
@@ -117,10 +127,24 @@ const BlogPage = ({ data }) => {
   );
 };
 
-export default BlogPage;
+CategoryPage.propTypes = {
+  pathContext: PropTypes.shape({
+    category: PropTypes.string.isRequired
+  }).isRequired,
+  data: PropTypes.shape({
+    posts: PropTypes.shape({
+      edges: PropTypes.array.isRequired,
+      totalCount: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired
+};
 
-export const query = graphql`
-  query Posts1Query {
+export default CategoryPage;
+
+// eslint-disable-next-line no-undef
+export const pageQuery = graphql`
+  # query CategoryPage($category: String!) {
+  query CategoryPage {
     site {
       siteMetadata {
         facebook {
@@ -128,14 +152,14 @@ export const query = graphql`
         }
       }
     }
-    allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
+    posts: allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
+      totalCount
       edges {
         node {
           uid
           last_publication_date(formatString: "MM/DD/YYYY")
           data {
             title {
-              html
               text
             }
             image {

@@ -11,6 +11,7 @@ import Subtitle from "../components/Article/Subtitle";
 import Cardslist from "../components/Card/Cardslist";
 import Bodytext from "../components/Article/Bodytext";
 import MailchimpForm from "../components/MailchimpForm";
+import Categories from "../components/Blog/Categories";
 
 import Button from "antd/lib/button";
 import "antd/lib/button/style/index.css";
@@ -65,7 +66,7 @@ class IndexPage extends React.Component {
               <header>
                 <Subtitle title="Our Top Guides To Cannabis Culture" theme={theme} />
               </header>
-              <Cardslist>
+              <Cardslist horizontal>
                 {allPrismicGuide.edges.map(({ node }, index) => (
                   <div key={index}>
                     <Link to={"/" + node.uid}>
@@ -173,19 +174,32 @@ class IndexPage extends React.Component {
               <Subtitle title="Our Latest Blogs" theme={theme} />
 
               <Cardslist>
-                {allPrismicBlogPost.edges.map(({ node }, index) => (
-                  <div key={index}>
-                    <Link to={node.uid}>
-                      <div className="card">
-                        <img src={node.data.image.url} alt="{node.data.title.text}" />
-                        <div className="text">
-                          <h3 className="heading">{node.data.title.text}</h3>
-                          <p className="meta">{node.data.excerpt.text}</p>
+                {allPrismicBlogPost.edges.map(({ node }, index) => {
+                  let categories = false;
+                  if (node.data.categories.length > 0 && node.data.categories[0].category) {
+                    categories = node.data.categories.map(c => c.category.document[0].data.name);
+                  }
+
+                  return (
+                    <div key={index}>
+                      <Link to={node.uid}>
+                        <div className="card">
+                          <img src={node.data.image.url} alt="{node.data.title.text}" />
+                          <div className="text">
+                            <h3 className="heading">{node.data.title.text}</h3>
+                            <div className="metaInfo">
+                              {node.last_publication_date}
+                              {node.data.author && " | " + node.data.author.document[0].data.name}
+                              {categories && " | "}
+                              {categories && <Categories categories={categories} theme={theme} />}
+                            </div>
+                            <p className="meta">{node.data.excerpt.text}</p>
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
+                      </Link>
+                    </div>
+                  );
+                })}
               </Cardslist>
               <div className="more">
                 <br />
@@ -263,8 +277,30 @@ class IndexPage extends React.Component {
                 @from-width desktop {
                   .card {
                     background: white;
-                    margin: 5px;
-                    width: 220px;
+                    margin: 10px;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    border-radius: 20px;
+
+                    img {
+                      width: 300px;
+                      min-width: 300px;
+                      height: 225px;
+                      min-height: 225px;
+                      border-radius: 20px;
+                      border-top-right-radius: 0;
+                      border-bottom-right-radius: 0;
+                      object-fit: cover;
+                    }
+
+                    .text {
+                      padding: 0 0.7em;
+
+                      h2 {
+                        margin-top: 0;
+                      }
+                    }
                   }
 
                   @media (hover: hover) {
@@ -299,6 +335,7 @@ export const guery = graphql`
       edges {
         node {
           uid
+          last_publication_date(formatString: "MM/DD/YYYY")
           data {
             title {
               html
@@ -311,6 +348,22 @@ export const guery = graphql`
             excerpt {
               html
               text
+            }
+            author {
+              document {
+                data {
+                  name
+                }
+              }
+            }
+            categories {
+              category {
+                document {
+                  data {
+                    name
+                  }
+                }
+              }
             }
           }
         }

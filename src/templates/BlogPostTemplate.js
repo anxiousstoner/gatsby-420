@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Helmet from "react-helmet";
+import kebabCase from "lodash/kebabCase";
 
 import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
@@ -8,6 +9,7 @@ import Headline from "../components/Article/Headline";
 import Bodytext from "../components/Article/Bodytext";
 
 import Cardslist from "../components/Card/Cardslist";
+import Categories from "../components/Blog/Categories";
 
 import MailchimpForm from "../components/MailchimpForm";
 
@@ -39,6 +41,26 @@ export default ({ data }) => {
 
   const postList = data.allPrismicBlogPost;
 
+  let categories = false;
+  if (post.data.categories.length > 0 && post.data.categories[0].category) {
+    categories = post.data.categories.map(c => c.category.document[0].data.name);
+  }
+
+  // Filter posts here since Gatsby 1.9 GraphQL issue
+  // https://github.com/gatsbyjs/gatsby/issues/4799
+  // https://github.com/gatsbyjs/gatsby/pull/6315
+  // https://github.com/gatsbyjs/gatsby/pull/8294
+  const morePosts = postList.edges
+    .filter(edge => edge.node.id !== data.prismicBlogPost.id)
+    .filter(
+      edge =>
+        categories
+          ? edge.node.data.categories.length > 0 &&
+            edge.node.data.categories.some(c => c.category.document[0].data.name === categories[0])
+          : true
+    )
+    .slice(0, 3);
+
   return (
     <React.Fragment>
       <Helmet
@@ -69,6 +91,12 @@ export default ({ data }) => {
           <Article theme={theme}>
             <header>
               <Headline title={post.data.title.text} theme={theme} />
+              <div className="metaInfo">
+                {post.last_publication_date}
+                {post.data.author && " | " + post.data.author.document[0].data.name}
+                {categories && " | "}
+                {categories && <Categories categories={categories} theme={theme} />}
+              </div>
               <img src={post.data.image.url} />
             </header>
             <Bodytext theme={theme} html={post.data.body.html} />
@@ -130,22 +158,46 @@ export default ({ data }) => {
             <MailchimpForm theme={theme} />
             <br />
             <br />
-            <Bodytext theme={theme} html="<h1>Latest Blogs:</h1>" />
+            <h1>
+              Latest Blogs{categories && ` from `}
+              {categories && (
+                <Link
+                  to={`/category/${kebabCase(categories[0])}`}
+                  style={{ color: theme.color.neutral.green }}
+                >
+                  {categories[0]}
+                </Link>
+              )}:
+            </h1>
             <br />
             <Cardslist>
-              {postList.edges.map(({ node }, index) => (
-                <div key={index}>
-                  <Link to={"/" + node.uid}>
-                    <div className="card">
-                      <img src={node.data.image.url} alt={node.data.title.text} />
-                      <div className="text">
-                        <h2 className="heading">{node.data.title.text}</h2>
-                        <p className="meta">{node.data.excerpt.text}</p>
+              {morePosts.map(({ node }, index) => {
+                let pCategories = false;
+                if (node.data.categories.length > 0 && node.data.categories[0].category) {
+                  pCategories = node.data.categories.map(c => c.category.document[0].data.name);
+                }
+
+                return (
+                  <div key={index}>
+                    <Link to={"/" + node.uid}>
+                      <div className="card">
+                        <img src={node.data.image.url} alt={node.data.title.text} />
+                        <div className="text">
+                          <h2 className="heading">{node.data.title.text}</h2>
+                          <div className="metaInfo">
+                            {node.last_publication_date}
+                            {node.data.author && " | " + node.data.author.document[0].data.name}
+                            {pCategories && " | "}
+                            {pCategories && <Categories categories={pCategories} theme={theme} />}
+                          </div>
+
+                          <p className="meta">{node.data.excerpt.text}</p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+                    </Link>
+                  </div>
+                );
+              })}
             </Cardslist>
 
             <div id="post-comments" className="comments">
@@ -187,6 +239,11 @@ export default ({ data }) => {
                 margin: 0 1em 1em;
               }
 
+              .metaInfo {
+                margin-top: -${theme.space.inset.m};
+                margin-bottom: ${theme.space.inset.m};
+              }
+
               @from-width tablet {
                 .share {
                   flex-direction: row;
@@ -201,6 +258,11 @@ export default ({ data }) => {
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                 transition: 0.3s;
                 border-radius: 5px;
+
+                .metaInfo {
+                  margin-top: 10px;
+                  margin-bottom: 0;
+                }
 
                 :global(img) {
                   min-width: 100%;
@@ -217,8 +279,35 @@ export default ({ data }) => {
               @from-width desktop {
                 .card {
                   background: white;
-                  margin: 5px;
-                  width: 223px;
+                  margin: 10px;
+                  display: flex;
+                  align-items: center;
+                  border-radius: 20px;
+                  width: 100%;
+
+                  img {
+                    width: 300px;
+                    min-width: 300px;
+                    height: 225px;
+                    min-height: 225px;
+                    border-radius: 20px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                    object-fit: cover;
+                  }
+                  .text {
+                    padding: 0 0.7em;
+
+                    h2 {
+                      margin-top: 0;
+                    }
+                  }
+                  .metaInfo {
+                    opacity: 0.7;
+                    font-size: 0.9rem;
+                    margin-top: 10px;
+                    margin-bottom: 0;
+                  }
                 }
 
                 .share {
@@ -254,6 +343,7 @@ export const query = graphql`
     prismicBlogPost(uid: { eq: $slug }) {
       id
       uid
+      last_publication_date(formatString: "MM/DD/YYYY")
       data {
         title {
           html
@@ -269,12 +359,30 @@ export const query = graphql`
           html
           text
         }
+        author {
+          document {
+            data {
+              name
+            }
+          }
+        }
+        categories {
+          category {
+            document {
+              data {
+                name
+              }
+            }
+          }
+        }
       }
     }
-    allPrismicBlogPost(limit: 3, sort: { fields: [last_publication_date], order: DESC }) {
+    allPrismicBlogPost(sort: { fields: [last_publication_date], order: DESC }) {
       edges {
         node {
+          id
           uid
+          last_publication_date(formatString: "MM/DD/YYYY")
           data {
             title {
               html
@@ -286,6 +394,22 @@ export const query = graphql`
             excerpt {
               html
               text
+            }
+            author {
+              document {
+                data {
+                  name
+                }
+              }
+            }
+            categories {
+              category {
+                document {
+                  data {
+                    name
+                  }
+                }
+              }
             }
           }
         }

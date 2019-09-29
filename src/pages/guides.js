@@ -18,7 +18,7 @@ export default ({ data }) => {
               <h1 />
               <Headline title="All Our Guides To Cannabis Culture" theme={theme} />
             </header>
-            <Cardslist>
+            <Cardslist horizontal>
               {data.allPrismicGuide.edges.map(({ node }, index) => (
                 <div key={index}>
                   <Link to={"/" + node.uid}>
