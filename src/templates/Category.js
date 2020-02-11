@@ -27,7 +27,6 @@ const CategoryPage = ({ data, pathContext: { category } }) => {
         {theme => (
           <Article theme={theme}>
             <header>
-              <h1 />
               <Headline title={`Posts in ${category} (${posts.length})`} theme={theme} />
             </header>
             <Cardslist>
