@@ -29,7 +29,7 @@ const Hero = props => {
           display: flex;
           flex-flow: column nowrap;
           justify-content: center;
-          min-height: 50vh;
+          min-height: 100vh;
           height: 100px;
           padding: ${theme.space.inset.l};
           padding-top: ${theme.header.height.homepage};
