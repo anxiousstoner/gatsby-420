@@ -158,7 +158,7 @@ export default ({ data }) => {
             <MailchimpForm theme={theme} />
             <br />
             <br />
-            <h1>
+            <h2>
               Latest Blogs{categories && ` from `}
               {categories && (
                 <Link
@@ -168,7 +168,7 @@ export default ({ data }) => {
                   {categories[0]}
                 </Link>
               )}:
-            </h1>
+            </h2>
             <br />
             <Cardslist>
               {morePosts.map(({ node }, index) => {
